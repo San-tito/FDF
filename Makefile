@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/01/16 23:35:08 by sguzman          ###   ########.fr        #
+#    Updated: 2024/01/17 00:07:40 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ MINILIBX	=	$(MINILIBX_PATH)/libmlx.a
 
 HEADER		= $(INCLUDE_PATH)/fdf.h
 
-GNL_HEADER 	= $(INCLUDE_PATH)/get_next_line.h
+GNL_HEADER 	= $(GNL_PATH)/get_next_line.h
 
 SRCS 		= wireframe.c
 
@@ -120,7 +120,7 @@ $(OBJS_PATH)/%.o: 	$(SRCS_PATH)/%.c $(HEADER) Makefile
 
 $(OBJS_PATH)/%.o: 	$(GNL_PATH)/%.c $(GNL_HEADER) Makefile
 			@mkdir -p $(dir $@)
-			@$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(INCLUDE_PATH)
+			@$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(GNL_PATH)
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Compiling:" "$(CYAN)" $< "$(GREEN)" "[✓]" "$(RESET)"
 
 clean:		banner
