@@ -1,6 +1,3 @@
-[submodule "external"]
-	path = external
-	url = git@github.com:San-tito/get_next_line.git
 [submodule "libs/libftprintf"]
 	path = libs/libftprintf
 	url = git@github.com:San-tito/ft_printf.git

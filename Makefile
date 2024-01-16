@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/01/16 18:43:27 by sguzman          ###   ########.fr        #
+#    Updated: 2024/01/16 23:35:08 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS_PATH	= ./src
 
 OBJS_PATH 	= ./build
 
-EXT_PATH	= ./external
+GNL_PATH	= $(SRCS_PATH)/get_next_line
 
 INCLUDE_PATH	= ./include
 
@@ -41,11 +41,11 @@ MINILIBX	=	$(MINILIBX_PATH)/libmlx.a
 
 HEADER		= $(INCLUDE_PATH)/fdf.h
 
-EXT_HEADER 	= $(EXT_PATH)/get_next_line_bonus.h
+GNL_HEADER 	= $(INCLUDE_PATH)/get_next_line.h
 
 SRCS 		= wireframe.c
 
-EXT_SRCS 	= get_next_line_bonus.c get_next_line_utils_bonus.c
+GNL_SRCS 	= get_next_line.c get_next_line_utils.c
 
 MAIN 		= fdf.c 
 
@@ -55,13 +55,13 @@ MAIN 		= fdf.c
 
 OBJS		= $(addprefix $(OBJS_PATH)/, ${SRCS:.c=.o})
 
-EXT_OBJS	= $(addprefix $(OBJS_PATH)/, ${EXT_SRCS:.c=.o})
+GNL_OBJS	= $(addprefix $(OBJS_PATH)/, ${GNL_SRCS:.c=.o})
 
 OBJS_MAIN	= $(addprefix $(OBJS_PATH)/, ${MAIN:.c=.o})
 
 DEPS		= $(addprefix $(OBJS_PATH)/, ${SRCS:.c=.d})
 
-EXT_DEPS	= $(addprefix $(OBJS_PATH)/, ${EXT_SRCS:.c=.d})
+GNL_DEPS	= $(addprefix $(OBJS_PATH)/, ${GNL_SRCS:.c=.d})
 
 DEPS_MAIN	= $(addprefix $(OBJS_PATH)/, ${MAIN:.c=.d})
 
@@ -100,8 +100,8 @@ banner:
 	@echo
 	@printf "%b" "$(RESET)"
 
--include $(DEPS) $(EXT_DEPS) $(DEPS_MAIN)
-$(NAME):	$(OBJS) $(EXT_OBJS) $(OBJS_MAIN) $(LIBFTPRINTF) $(MINILIBX)
+-include $(DEPS) $(GNL_DEPS) $(DEPS_MAIN)
+$(NAME):	$(OBJS) $(GNL_OBJS) $(OBJS_MAIN) $(LIBFTPRINTF) $(MINILIBX)
 			@$(CC) $(CFLAGS) $(DFLAGS) -I $(INCLUDE_PATH) -o $@ $^
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Building program:" "$(CYAN)" $@ "$(GREEN)" "[✓]" "$(RESET)"
 
@@ -118,9 +118,9 @@ $(OBJS_PATH)/%.o: 	$(SRCS_PATH)/%.c $(HEADER) Makefile
 			@$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(INCLUDE_PATH)
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Compiling:" "$(CYAN)" $< "$(GREEN)" "[✓]" "$(RESET)"
 
-$(OBJS_PATH)/%.o: 	$(EXT_PATH)/%.c $(EXT_HEADER) Makefile
+$(OBJS_PATH)/%.o: 	$(GNL_PATH)/%.c $(GNL_HEADER) Makefile
 			@mkdir -p $(dir $@)
-			@$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(EXT_PATH)
+			@$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(INCLUDE_PATH)
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Compiling:" "$(CYAN)" $< "$(GREEN)" "[✓]" "$(RESET)"
 
 clean:		banner
