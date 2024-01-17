@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/17 00:14:23 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/17 01:05:07 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 # define FDF_H
 
 # include "../libs/libftprintf/include/ft_printf_bonus.h"
+# include "../libs/minilibx/mlx.h"
 # include <fcntl.h>
 
 /* ************************************************************************** */
 /*                                Get Next Line             		      */
 /* ************************************************************************** */
-char				*get_next_line(int fd);
+char	*get_next_line(int fd);
 
 #endif
