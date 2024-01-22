@@ -6,18 +6,20 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:35 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/17 00:13:53 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/22 13:25:35 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	main(int argc, char **argv)
+void	read_points(char *pathname, t_list **points)
 {
 	int		fd;
 	char	*line;
 
-	fd = open(*(argv + argc - 1), O_RDONLY);
+	fd = open(pathname, O_RDONLY);
+	if (fd < 0)
+		exit(EXIT_FAILURE);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -25,5 +27,15 @@ int	main(int argc, char **argv)
 		free(line);
 		line = get_next_line(fd);
 	}
-	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	t_list	*points;
+
+	points = NULL;
+	if (argc != 2)
+		return (EXIT_FAILURE);
+	read_points(*(argv + 1), &points);
+	return (EXIT_SUCCESS);
 }
