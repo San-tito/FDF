@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/23 18:09:21 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/24 12:19:10 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <fcntl.h>
 
 /* ************************************************************************** */
-/*                           Definition of the Stack Structure                */
+/*                           Definition of the Edge Structure                 */
 /* ************************************************************************** */
 typedef struct s_edge
 {
@@ -29,8 +29,11 @@ typedef struct s_edge
 }		t_edge;
 
 /* ************************************************************************** */
-/*                                Get Next Line             					 */
+/*                           Parsing Functions                                */
 /* ************************************************************************** */
 char	*get_next_line(int fd);
+t_edge	parse_coordinate(int axis, int ordinate, int altitude);
+void	parse_line(char *line, t_list **edges, int ordinate);
+void	parse_map(char *pathname, t_list **edges);
 
 #endif
