@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:11:24 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/24 12:29:55 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/24 19:59:01 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,21 @@
 t_edge	parse_coordinate(int axis, int ordinate, char *token)
 {
 	t_edge	edge;
-	char	**color_split;
 
 	edge.x = axis;
 	edge.y = ordinate;
 	edge.z = ft_atoi(token);
-	point.color = 0xFFFFFF;
-	if (ft_strchr(token, ','))
-	{
-		//parse color
-	}
+	edge.color = 0xFFFFFF;
+	// if (ft_strchr(token, ','))
 	return (edge);
 }
 
 void	parse_line(char *line, t_list **edges, int ordinate)
 {
-	int		axis;
 	t_edge	edge;
 	t_list	*new;
 	char	**coordinates;
+	int		axis;
 
 	coordinates = ft_split(line, ' ');
 	if (!coordinates)
@@ -44,6 +40,7 @@ void	parse_line(char *line, t_list **edges, int ordinate)
 		edge = parse_coordinate(axis, ordinate, *(coordinates + axis));
 		new = ft_lstnew(&edge);
 		ft_lstadd_back(edges, new);
+		axis++;
 	}
 }
 
