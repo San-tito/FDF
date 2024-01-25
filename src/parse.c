@@ -6,11 +6,23 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:11:24 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/25 18:55:10 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/26 00:20:10 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	lstclear(t_list **lst)
+{
+	t_list	*tmp;
+
+	while (*lst)
+	{
+		tmp = (**lst).next;
+		free(*lst);
+		*lst = tmp;
+	}
+}
 
 static int	parse_color(char *token)
 {
@@ -54,29 +66,34 @@ static void	parse_line(char *line, t_list **edges, int ordinate, int fd)
 	t_edge	edge;
 	t_list	*new;
 	char	**coordinates;
-	int		axis;
+	int		x;
 
 	coordinates = ft_split(line, ' ');
 	if (!coordinates)
 	{
 		close(fd);
-		ft_lstclear(edges, free);
+		free(line); // <- TODO 
+		lstclear(edges);
 		exit(EXIT_FAILURE);
 	}
-	axis = 0;
-	while (*(coordinates + axis))
+	x = 0;
+	while (*(coordinates + x))
 	{
-		edge = parse_coordinate(axis, ordinate, *(coordinates + axis));
+		edge = parse_coordinate(x, ordinate, *(coordinates + x));
 		new = ft_lstnew(&edge);
 		if (!new)
 		{
 			close(fd);
-			ft_lstclear(edges, free);
+			lstclear(edges);
 			exit(EXIT_FAILURE);
 		}
 		ft_lstadd_back(edges, new);
-		axis++;
+		x++;
 	}
+	x = 0;
+	while (*(coordinates + x))
+		free(*(coordinates + x++));
+	free(coordinates);
 }
 
 void	parse_map(char *pathname, t_list **edges)
