@@ -6,56 +6,48 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:11:24 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/25 12:10:23 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/25 17:33:44 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	is_valid_hex_digit(char c)
-{
-	return ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A'
-			&& c <= 'F'));
-}
-
-static int	get_hex_digit_value(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (c - '0');
-	else if (c >= 'a' && c <= 'f')
-		return (c - 'a' + 10);
-	else if (c >= 'A' && c <= 'F')
-		return (c - 'A' + 10);
-	return (-1);
-}
-
 static int	parse_color(char *token)
 {
-	int		color;
-	char	*start;
+	int			color;
+	const char	*start = ft_strchr(token, ',');
 
-	start = ft_strchr(token, ',');
 	color = 0x000000;
 	if (!start)
 		return (0xFFFFFF);
-	else
-		token = ++start;
+	token = (char *)start + 1;
 	if (*token == '0' && (*(token + 1) == 'x' || *(token + 1) == 'X'))
 		token += 2;
-	while (is_valid_hex_digit(*token))
+	while (ft_isdigit(*token) || (*token >= 'a' && *token <= 'f')
+		|| (*token >= 'A' && *token <= 'F'))
 	{
-		color = color * 16 + get_hex_digit_value(*token);
+		color *= 16;
+		if (ft_isdigit(*token))
+			color += (*token - '0');
+		else if (*token >= 'a' && *token <= 'f')
+			color += (*token - 'a' + 10);
+		else if (*token >= 'A' && *token <= 'F')
+			color += (*token - 'A' + 10);
 		token++;
 	}
 	return (color);
 }
 
-static void	parse_coordinate(t_edge *edge, int axis, int ordinate, char *token)
+static t_edge	parse_coordinate(int axis, int ordinate, char *token)
 {
-	(*edge).x = axis;
-	(*edge).y = ordinate;
-	(*edge).z = ft_atoi(token);
-	(*edge).color = parse_color(token);
+	t_edge	edge;
+
+	edge.x = axis;
+	edge.y = ordinate;
+	edge.z = ft_atoi(token);
+	edge.color = parse_color(token);
+	ft_printf("z -> %i; color -> %i\n", edge.z, edge.color);
+	return (edge);
 }
 
 static void	parse_line(char *line, t_list **edges, int ordinate, int fd)
@@ -75,7 +67,7 @@ static void	parse_line(char *line, t_list **edges, int ordinate, int fd)
 	axis = 0;
 	while (*(coordinates + axis))
 	{
-		parse_coordinate(&edge, axis, ordinate, *(coordinates + axis));
+		edge = parse_coordinate(axis, ordinate, *(coordinates + axis));
 		new = ft_lstnew(&edge);
 		if (!new)
 		{
