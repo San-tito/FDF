@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/01/27 02:27:27 by sguzman          ###   ########.fr        #
+#    Updated: 2024/01/27 02:29:55 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME		= fdf
 CC 		= gcc
-CFLAGS		= -Wall -Wextra -Werror -lXext -lX11
+CFLAGS		= -Wall -Wextra -Werror 
 DFLAGS		= -MMD -MF $(@:.o=.d)
 UNAME 		= $(shell uname)
 
