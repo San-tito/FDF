@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:11:24 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 14:54:26 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/27 15:24:21 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	clean_halt(int fd, t_list **edges, char *line, char **coords)
 
 static int	parse_color(char *token)
 {
-	int			color;
-	const char	*start = ft_strchr(token, ',');
+	unsigned int	color;
+	const char		*start = ft_strchr(token, ',');
 
 	color = 0x000000;
 	if (!start)
