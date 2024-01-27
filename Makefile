@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/01/27 00:47:52 by sguzman          ###   ########.fr        #
+#    Updated: 2024/01/27 01:23:11 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,9 @@
 
 NAME		= fdf
 CC 		= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror 
 DFLAGS		= -MMD -MF $(@:.o=.d)
+UNAME 		= $(shell uname)
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -37,13 +38,13 @@ MINILIBX_PATH    = ./libs/minilibx
 
 LIBFTPRINTF		= $(LIBFTPRINTF_PATH)/libftprintf.a
 
-MINILIBX	=	$(MINILIBX_PATH)/libmlx.a
+MINILIBX	=	$(MINILIBX_PATH)/libmlx.a $(MINILIBX_PATH)/libmlx_$(UNAME).a
 
 HEADER		= $(INCLUDE_PATH)/fdf.h
 
 GNL_HEADER 	= $(GNL_PATH)/get_next_line.h
 
-SRCS 		= clean.c parse.c  wireframe.c
+SRCS 		= clean.c parse.c  render.c 
 
 GNL_SRCS 	= get_next_line.c get_next_line_utils.c
 
@@ -101,7 +102,7 @@ banner:
 	@printf "%b" "$(RESET)"
 
 -include $(DEPS) $(GNL_DEPS) $(DEPS_MAIN)
-$(NAME):	$(OBJS) $(GNL_OBJS) $(OBJS_MAIN) $(LIBFTPRINTF) #$(MINILIBX)
+$(NAME):	$(OBJS) $(GNL_OBJS) $(OBJS_MAIN) $(LIBFTPRINTF) $(MINILIBX)
 			@$(CC) $(CFLAGS) $(DFLAGS) -I $(INCLUDE_PATH) -o $@ $^
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Building program:" "$(CYAN)" $@ "$(GREEN)" "[✓]" "$(RESET)"
 

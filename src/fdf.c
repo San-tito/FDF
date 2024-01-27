@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:35 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 01:03:55 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/27 01:11:17 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (EXIT_SUCCESS);
 	parse_map(*(argv + 1), &edges);
-	print_list(edges);
+	render_wireframe(&edges);
 	lstclear(&edges);
 	return (EXIT_SUCCESS);
 }
