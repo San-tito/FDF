@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:11:24 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 01:02:19 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/27 01:05:47 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	parse_line(char *line, t_list **edges, int ordinate, int fd)
 
 	coords = ft_split(line, ' ');
 	if (!coords)
-		clean_halt(fd, edges, line, coords);
+		clean_halt(fd, edges, line, NULL);
 	x = 0;
 	while (*(coords + x))
 	{
