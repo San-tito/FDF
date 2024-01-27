@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/01/27 02:29:55 by sguzman          ###   ########.fr        #
+#    Updated: 2024/01/27 12:06:18 by santito          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,10 +132,13 @@ $(OBJS_PATH)/%.o: 	$(GNL_PATH)/%.c $(GNL_HEADER) Makefile
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Compiling:" "$(CYAN)" $< "$(GREEN)" "[✓]" "$(RESET)"
 
 clean:		banner
+			@make $@ -C $(LIBFTPRINTF_PATH) > /dev/null
+			@make $@ -C $(MINILIBX_PATH) > /dev/null
 			@rm -rf $(OBJS_PATH)
 			@printf "%b%-42s%-42b%b%s%b\n" "$(BLUE)" "$@:" "$(CYAN)" "$(GREEN)" "[✓]" "$(RESET)"
 
 fclean:		banner clean
+			@make $@ -C $(LIBFTPRINTF_PATH) > /dev/null
 			@rm -rf $(NAME)
 			@printf "%b%-42s%-42b%b%s%b\n" "$(BLUE)" "$@:" "$(CYAN)" "$(GREEN)" "[✓]" "$(RESET)"
 
