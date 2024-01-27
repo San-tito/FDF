@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 01:10:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 21:45:10 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/27 23:05:20 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,36 @@ void	pixel_put(t_mlx *mlx, int x, int y, int color)
 	*((unsigned int *)((*mlx).img_addr) + offset) = color;
 }
 
-void	draw_line(t_mlx *mlx, t_edge edge0, t_edge edge1)
+void	draw_line(t_mlx *mlx, t_edge *p0, t_edge *p1)
 {
-	float	delta_x;
-	float	delta_y;
-	float	step;
-	int		color;
-	float	x_increment;
-	float	y_increment;
-	float	x;
-	float	y;
+	const float	dx = fabsf(p1->x - p0->x);
+	const float	sx = (p0->x < p1->x) ? 1.0f : -1.0f;
+	const float	dy = -fabsf(p1->y - p0->y);
+	const float	sy = (p0->y < p1->y) ? 1.0f : -1.0f;
+	float		error;
+	float		e2;
 
-	delta_x = edge1.x - edge0.x;
-	delta_y = edge1.y - edge0.y;
-	color = edge0.color;
-	if (fabs(delta_x) > fabs(delta_y))
-		step = fabs(delta_x);
-	else
-		step = fabs(delta_y);
-	x_increment = delta_x / step;
-	y_increment = delta_y / step;
-	x = edge0.x;
-	y = edge0.y;
-	for (int i = 0; i <= step; i++)
+	error = dx + dy;
+	while (1)
 	{
-		pixel_put(mlx, round(x), round(y), color);
-		x += x_increment;
-		y += y_increment;
+		pixel_put(mlx, p0->x, p0->y, p0->color);
+		if (p0->x == p1->x && p0->y == p1->y)
+			break ;
+		e2 = 2.0f * error;
+		if (e2 >= dy)
+		{
+			if (p0->x == p1->x)
+				break ;
+			error += dy;
+			p0->x += sx;
+		}
+		if (e2 <= dx)
+		{
+			if (p0->y == p1->y)
+				break ;
+			error += dx;
+			p0->y += sy;
+		}
 	}
 }
 
@@ -68,7 +71,7 @@ void	render_edges(t_list *edges, t_mlx *mlx)
 	{
 		current_edge = (t_edge *)(current->content);
 		next_edge = (t_edge *)(current->next->content);
-		draw_line(mlx, *current_edge, *next_edge);
+		draw_line(mlx, current_edge, next_edge);
 		current = current->next;
 	}
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, (WIDTH
