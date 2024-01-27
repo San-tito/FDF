@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 21:11:41 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/27 21:45:25 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,18 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define SCREEN_WIDTH 1280
-# define SCREEN_HEIGHT 720
+# define TITLE "FDF"
+# define WIDTH 1280
+# define HEIGHT 720
 
 /* ************************************************************************** */
 /*                           Definition of the Edge Structure                 */
 /* ************************************************************************** */
 typedef struct s_edge
 {
-	int				x;
-	int				y;
-	int				z;
+	float			x;
+	float			y;
+	float			z;
 	unsigned int	color;
 }					t_edge;
 
