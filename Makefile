@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/01/27 01:23:11 by sguzman          ###   ########.fr        #
+#    Updated: 2024/01/27 02:27:27 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,16 @@
 
 NAME		= fdf
 CC 		= gcc
-CFLAGS		= -Wall -Wextra -Werror 
+CFLAGS		= -Wall -Wextra -Werror -lXext -lX11
 DFLAGS		= -MMD -MF $(@:.o=.d)
 UNAME 		= $(shell uname)
+
+ifeq ($(UNAME), Darwin)
+	MLXFLAGS = -framework OpenGL -framework AppKit -lm
+endif
+ifeq ($(UNAME), Linux)
+	MLXFLAGS = -lX11 -lXext -lm 
+endif
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -103,7 +110,7 @@ banner:
 
 -include $(DEPS) $(GNL_DEPS) $(DEPS_MAIN)
 $(NAME):	$(OBJS) $(GNL_OBJS) $(OBJS_MAIN) $(LIBFTPRINTF) $(MINILIBX)
-			@$(CC) $(CFLAGS) $(DFLAGS) -I $(INCLUDE_PATH) -o $@ $^
+			@$(CC) $(CFLAGS) $(DFLAGS) -I $(INCLUDE_PATH) $^ $(MLXFLAGS) -o $@ 
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Building program:" "$(CYAN)" $@ "$(GREEN)" "[✓]" "$(RESET)"
 
 $(LIBFTPRINTF):
