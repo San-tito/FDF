@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:11:24 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 01:05:47 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/27 03:39:45 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,9 @@ static void	parse_line(char *line, t_list **edges, int ordinate, int fd)
 		if (!edge)
 			clean_halt(fd, edges, line, coords);
 		new = ft_lstnew(edge);
-		if (!new)
-		{
-			free(edge);
-			clean_halt(fd, edges, line, coords);
-		}
 		ft_lstadd_back(edges, new);
+		if (!new)
+			clean_halt(fd, edges, line, coords);
 		x++;
 	}
 	arrclear(coords);
