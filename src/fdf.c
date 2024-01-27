@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:35 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 01:11:17 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/27 03:41:38 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_list(t_list *head)
 {
 	t_list	*current;
 	t_edge	*edge;
-	t_edge	*nextEdge;
+	t_edge	*next;
 
 	current = head;
 	while (current)
@@ -26,8 +26,8 @@ void	print_list(t_list *head)
 		current = current->next;
 		if (current != NULL)
 		{
-			nextEdge = (t_edge *)current->content;
-			if (nextEdge->y > edge->y)
+			next = (t_edge *)current->content;
+			if (next->y > edge->y)
 				ft_printf("\n");
 		}
 	}

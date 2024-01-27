@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:11:24 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 03:39:45 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/27 14:54:26 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ static void	parse_line(char *line, t_list **edges, int ordinate, int fd)
 
 void	parse_map(char *pathname, t_list **edges)
 {
-	int		ordinate;
-	int		fd;
-	char	*line;
+	char		*line;
+	int			fd;
+	int			ordinate;
+	const char	*spinner = "|/-\\";
 
 	fd = open(pathname, O_RDONLY);
 	if (fd < 0)
@@ -100,9 +101,12 @@ void	parse_map(char *pathname, t_list **edges)
 	line = get_next_line(fd);
 	while (line)
 	{
+		ft_printf("Parsing line %d %c\r", ordinate, *(spinner + (ordinate
+					% ft_strlen(spinner))));
 		parse_line(line, edges, ordinate++, fd);
 		free(line);
 		line = get_next_line(fd);
 	}
+	ft_printf("Parsing complete!                  \n");
 	close(fd);
 }
