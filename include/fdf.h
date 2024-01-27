@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/26 00:14:28 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/27 00:48:10 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void	parse_map(char *pathname, t_list **edges);
 /*                             Memory Freers                                  */
 /* ************************************************************************** */
 void	lstclear(t_list **lst);
+void	arrclear(char **arr);
 
 #endif

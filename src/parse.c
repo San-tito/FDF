@@ -6,22 +6,20 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:11:24 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/26 00:20:10 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/27 01:02:19 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	lstclear(t_list **lst)
+static void	clean_halt(int fd, t_list **edges, char *line, char **coords)
 {
-	t_list	*tmp;
-
-	while (*lst)
-	{
-		tmp = (**lst).next;
-		free(*lst);
-		*lst = tmp;
-	}
+	close(fd);
+	lstclear(edges);
+	free(line);
+	if (coords)
+		arrclear(coords);
+	exit(EXIT_FAILURE);
 }
 
 static int	parse_color(char *token)
@@ -33,7 +31,7 @@ static int	parse_color(char *token)
 	if (!start)
 		return (0xFFFFFF);
 	token = (char *)start + 1;
-	if (*token == '0' && (*(token + 1) == 'x' || *(token + 1) == 'X'))
+	if (!ft_strncmp(token, "0x", 2) || !ft_strncmp(token, "0X", 2))
 		token += 2;
 	while (ft_isdigit(*token) || (*token >= 'a' && *token <= 'f')
 		|| (*token >= 'A' && *token <= 'F'))
@@ -50,50 +48,46 @@ static int	parse_color(char *token)
 	return (color);
 }
 
-static t_edge	parse_coordinate(int axis, int ordinate, char *token)
+static t_edge	*parse_coord(int axis, int ordinate, char *token)
 {
-	t_edge	edge;
+	t_edge	*edge;
 
-	edge.x = axis;
-	edge.y = ordinate;
-	edge.z = ft_atoi(token);
-	edge.color = parse_color(token);
+	edge = ft_calloc(1, sizeof(t_edge));
+	if (!edge)
+		return (NULL);
+	(*edge).x = axis;
+	(*edge).y = ordinate;
+	(*edge).z = ft_atoi(token);
+	(*edge).color = parse_color(token);
 	return (edge);
 }
 
 static void	parse_line(char *line, t_list **edges, int ordinate, int fd)
 {
-	t_edge	edge;
 	t_list	*new;
-	char	**coordinates;
+	t_edge	*edge;
+	char	**coords;
 	int		x;
 
-	coordinates = ft_split(line, ' ');
-	if (!coordinates)
-	{
-		close(fd);
-		free(line); // <- TODO 
-		lstclear(edges);
-		exit(EXIT_FAILURE);
-	}
+	coords = ft_split(line, ' ');
+	if (!coords)
+		clean_halt(fd, edges, line, coords);
 	x = 0;
-	while (*(coordinates + x))
+	while (*(coords + x))
 	{
-		edge = parse_coordinate(x, ordinate, *(coordinates + x));
-		new = ft_lstnew(&edge);
+		edge = parse_coord(x, ordinate, *(coords + x));
+		if (!edge)
+			clean_halt(fd, edges, line, coords);
+		new = ft_lstnew(edge);
 		if (!new)
 		{
-			close(fd);
-			lstclear(edges);
-			exit(EXIT_FAILURE);
+			free(edge);
+			clean_halt(fd, edges, line, coords);
 		}
 		ft_lstadd_back(edges, new);
 		x++;
 	}
-	x = 0;
-	while (*(coordinates + x))
-		free(*(coordinates + x++));
-	free(coordinates);
+	arrclear(coords);
 }
 
 void	parse_map(char *pathname, t_list **edges)
