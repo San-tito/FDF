@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:35 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 03:41:38 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/27 21:09:15 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,16 @@ void	print_list(t_list *head)
 
 int	main(int argc, char **argv)
 {
+	t_mlx	mlx;
 	t_list	*edges;
 
+	mlx = (t_mlx){};
 	edges = NULL;
 	if (argc != 2)
 		return (EXIT_SUCCESS);
 	parse_map(*(argv + 1), &edges);
-	render_wireframe(&edges);
+	render_wireframe(&edges, &mlx);
 	lstclear(&edges);
+	mlxclear(&mlx);
 	return (EXIT_SUCCESS);
 }
