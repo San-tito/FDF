@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:35 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 21:53:24 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/28 22:23:12 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int	main(int argc, char **argv)
 {
-	t_mlx	mlx;
-	t_list	*edges;
+	t_scene scene;
 
-	mlx = (t_mlx){};
-	edges = NULL;
+	scene.xlib = (t_xlib){};
+	scene.edges = NULL;
 	if (argc != 2)
 		return (EXIT_SUCCESS);
-	parse_map(*(argv + 1), &edges);
-	render_wireframe(&edges, &mlx);
-	lstclear(&edges);
-	mlxclear(&mlx);
+	parse_map(*(argv + 1), &scene.edges);
+	render_wireframe(&scene);
+	lstclear(&scene.edges);
+	xlibclear(&scene.xlib);
 	return (EXIT_SUCCESS);
 }

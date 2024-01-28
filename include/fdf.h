@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 21:45:25 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/01/28 22:54:02 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,33 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define TITLE "FDF"
+# define TITLE "🚀 Wireframe Model 🌐"
 # define WIDTH 1280
 # define HEIGHT 720
+
+/* ************************************************************************** */
+/*                           Definition of the Xlib Structure                 */
+/* ************************************************************************** */
+typedef struct s_xlib
+{
+	void			*mlx_ptr;
+	void			*win_ptr;
+	void			*img_ptr;
+	char			*img_addr;
+	int				bits_per_pixel;
+	int				size_line;
+	int				endian;
+}					t_xlib;
+
+/* ************************************************************************** */
+/*                           Definition of the Scene Structure                */
+/* ************************************************************************** */
+typedef struct s_scene
+{
+	t_xlib			xlib;
+	t_list			*edges;
+	float			scale;
+}					t_scene;
 
 /* ************************************************************************** */
 /*                           Definition of the Edge Structure                 */
@@ -34,20 +58,6 @@ typedef struct s_edge
 }					t_edge;
 
 /* ************************************************************************** */
-/*                              MLX Structure                                 */
-/* ************************************************************************** */
-typedef struct s_mlx
-{
-	void			*mlx_ptr;
-	void			*win_ptr;
-	void			*img_ptr;
-	char			*img_addr;
-	int				bits_per_pixel;
-	int				size_line;
-	int				endian;
-}					t_mlx;
-
-/* ************************************************************************** */
 /*                            Parsing Helpers                                 */
 /* ************************************************************************** */
 char				*get_next_line(int fd);
@@ -56,13 +66,13 @@ void				parse_map(char *pathname, t_list **edges);
 /* ************************************************************************** */
 /*                           Rendering Function                               */
 /* ************************************************************************** */
-void				render_wireframe(t_list **edges, t_mlx *mlx);
+void				render_wireframe(t_scene *scene);
 
 /* ************************************************************************** */
 /*                             Memory Freers                                  */
 /* ************************************************************************** */
 void				lstclear(t_list **lst);
 void				arrclear(char **arr);
-void				mlxclear(t_mlx *mlx);
+void				xlibclear(t_xlib *xlib);
 
 #endif
