@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/01 07:48:42 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/01 08:49:45 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	draw_edges(t_scene *scene)
 	t_edge	*current_edge;
 
 	current = (*scene).edges;
-	while (current && current->next)
+	while (current)
 	{
 		current_edge = (t_edge *)(current->content);
 		pixel_put((*scene).xlib, (int)current_edge->x, (int)current_edge->y,

@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 01:10:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/01 08:29:48 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/01 08:44:28 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	render_frame(t_scene *scene)
 	draw_edges(scene);
 	mlx_put_image_to_window((*xlib).mlx_ptr, (*xlib).win_ptr, (*xlib).img_ptr,
 		0, 0);
+	ft_printf("Rendering \r");
 	return (0);
 }
 
@@ -72,4 +73,5 @@ void	render_wireframe(t_scene *scene)
 	mlx_expose_hook((*xlib).win_ptr, render_frame, scene);
 	mlx_key_hook((*xlib).win_ptr, handle_key, scene);
 	mlx_loop((*xlib).mlx_ptr);
+	ft_printf("Rendering complete!                  \n");
 }

@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/02/01 08:32:03 by sguzman          ###   ########.fr        #
+#    Updated: 2024/02/01 08:55:37 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,11 +114,11 @@ $(NAME):	$(OBJS) $(GNL_OBJS) $(OBJS_MAIN) $(LIBFTPRINTF) $(MINILIBX)
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Building program:" "$(CYAN)" $@ "$(GREEN)" "[✓]" "$(RESET)"
 
 $(LIBFTPRINTF):
-			@make -C $(LIBFTPRINTF_PATH) > /dev/null
+			@make bonus -C $(LIBFTPRINTF_PATH) > /dev/null
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Building Libftprintf library:" "$(CYAN)" $@ "$(GREEN)" "[✓]" "$(RESET)"
 
 $(MINILIBX):
-			@make -C $(MINILIBX_PATH) > /dev/null
+			@make -C $(MINILIBX_PATH) > /dev/null 2> /dev/null
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Building Minilibx library:" "$(CYAN)" $@ "$(GREEN)" "[✓]" "$(RESET)"
 
 $(OBJS_PATH)/%.o: 	$(SRCS_PATH)/%.c $(HEADER) Makefile
