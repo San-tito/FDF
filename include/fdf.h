@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/28 22:54:02 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/01 08:31:27 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 # include "../libs/minilibx/mlx.h"
 # include <fcntl.h>
 # include <math.h>
+# include <stdio.h>
+# include <string.h>
 
-# define TITLE "🚀 Wireframe Model 🌐"
+# define TITLE " Wireframe Model "
 # define WIDTH 1280
 # define HEIGHT 720
 
@@ -64,9 +66,16 @@ char				*get_next_line(int fd);
 void				parse_map(char *pathname, t_list **edges);
 
 /* ************************************************************************** */
-/*                           Rendering Function                               */
+/*                                Rendering                                   */
 /* ************************************************************************** */
+void				draw_edges(t_scene *scene);
 void				render_wireframe(t_scene *scene);
+
+/* ************************************************************************** */
+/*                                Transform                                   */
+/* ************************************************************************** */
+void				*translate(int dx, int dy);
+void				center(t_list **edges, int width, int height);
 
 /* ************************************************************************** */
 /*                             Memory Freers                                  */

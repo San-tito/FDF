@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:11:24 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/27 18:33:33 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/01 06:54:31 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 static void	clean_halt(int fd, t_list **edges, char *line, char **coords)
 {
-	close(fd);
+	if (fd > 0)
+		close(fd);
 	lstclear(edges);
 	free(line);
 	if (coords)
 		arrclear(coords);
+	perror("Error");
 	exit(EXIT_FAILURE);
 }
 
@@ -96,7 +98,7 @@ void	parse_map(char *pathname, t_list **edges)
 
 	fd = open(pathname, O_RDONLY);
 	if (fd < 0)
-		exit(EXIT_FAILURE);
+		clean_halt(fd, edges, NULL, NULL);
 	ordinate = 0;
 	line = get_next_line(fd);
 	while (line)

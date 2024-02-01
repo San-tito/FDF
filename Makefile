@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/01/28 21:46:45 by sguzman          ###   ########.fr        #
+#    Updated: 2024/02/01 08:32:03 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME		= fdf
 CC 		= gcc
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 DFLAGS		= -MMD -MF $(@:.o=.d)
 UNAME 		= $(shell uname)
 
@@ -51,7 +51,7 @@ HEADER		= $(INCLUDE_PATH)/fdf.h
 
 GNL_HEADER 	= $(GNL_PATH)/get_next_line.h
 
-SRCS 		= clean.c parse.c  render.c 
+SRCS 		= clean.c graphics.c parse.c render.c transform.c
 
 GNL_SRCS 	= get_next_line.c get_next_line_utils.c
 
