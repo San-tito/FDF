@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 01:10:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/01 08:44:28 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/01 12:15:32 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ int	handle_key(int keycode, t_scene *scene)
 		ft_lstiter((*scene).edges, translate(0, 1));
 	else if (keycode == 100)
 		ft_lstiter((*scene).edges, translate(1, 0));
+	else if (keycode == 61)
+		(*scene).scale += 2;
+	 else if (keycode == 45)
+		(*scene).scale -= 2;
 	if (keycode == 65307)
 		return (mlx_loop_end((*scene).xlib.mlx_ptr));
 	render_frame(scene);

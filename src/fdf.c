@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:35 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/01 08:41:30 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/01 12:12:29 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv)
 
 	scene.xlib = (t_xlib){};
 	scene.edges = NULL;
+	scene.scale = 1;
 	if (argc != 2)
 		return (EXIT_SUCCESS);
 	parse_map(*(argv + 1), &scene.edges);

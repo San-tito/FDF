@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/01 08:31:27 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/01 12:23:03 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_scene
 {
 	t_xlib			xlib;
 	t_list			*edges;
-	float			scale;
+	unsigned int	scale;
 }					t_scene;
 
 /* ************************************************************************** */
@@ -53,9 +53,9 @@ typedef struct s_scene
 /* ************************************************************************** */
 typedef struct s_edge
 {
-	float			x;
-	float			y;
-	float			z;
+	int				x;
+	int				y;
+	int				z;
 	unsigned int	color;
 }					t_edge;
 
