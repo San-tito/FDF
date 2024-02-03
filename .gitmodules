@@ -1,9 +1,14 @@
 [submodule "libs/libftprintf"]
 	path = libs/libftprintf
 	url = https://github.com/San-tito/ft_printf.git
-[submodule "libs/minilibx"]
-	path = libs/minilibx
+[submodule "libs/minilibx_Linux"]
+	path = libs/minilibx_Linux
 	url = https://github.com/San-tito/minilibx.git
+	branch = X11
+[submodule "libs/minilibx_Darwin"]
+	path = libs/minilibx_Darwin
+	url = https://github.com/San-tito/minilibx.git
+	branch = OpenGL
 [submodule "src/get_next_line"]
 	path = src/get_next_line
 	url = https://github.com/San-tito/get_next_line

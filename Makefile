@@ -41,7 +41,7 @@ INCLUDE_PATH	= ./include
 
 LIBFTPRINTF_PATH = ./libs/libftprintf
 
-MINILIBX_PATH    = ./libs/minilibx
+MINILIBX_PATH    = ./libs/minilibx_$(UNAME)
 
 LIBFTPRINTF		= $(LIBFTPRINTF_PATH)/libftprintf.a
 
