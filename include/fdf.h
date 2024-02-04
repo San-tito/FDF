@@ -13,8 +13,14 @@
 #ifndef FDF_H
 # define FDF_H
 
+#ifdef __linux__
+#include "../libs/minilibx_Linux/mlx.h"
+#endif
+#ifdef __APPLE__
+#include "../libs/minilibx_Darwin/mlx.h"
+#endif
+
 # include "../libs/libftprintf/include/ft_printf.h"
-# include "../libs/minilibx/mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>

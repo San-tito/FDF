@@ -15,7 +15,7 @@
 ################################################################################
 
 NAME		= fdf
-CC 		= gcc
+CC 		= cc
 CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 DFLAGS		= -MMD -MF $(@:.o=.d)
 UNAME 		= $(shell uname)
