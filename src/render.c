@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 01:10:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/06 19:38:58 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:50:55 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,43 +19,37 @@ void	clean_halt(t_scene *scene)
 	exit(EXIT_FAILURE);
 }
 
-int	render_frame(t_scene *scene)
+void	render_frame(void *param)
 {
-	(void)scene;
-	ft_printf("Rendering \r");
-	return (0);
-}
+	mlx_t	*xlib;
+	t_list	*edges;
 
-int	handle_key(int keycode, t_scene *scene)
-{
-	if (keycode == 119)
-		ft_lstiter((*scene).edges, translate(0, -1));
-	else if (keycode == 97)
-		ft_lstiter((*scene).edges, translate(-1, 0));
-	else if (keycode == 115)
-		ft_lstiter((*scene).edges, translate(0, 1));
-	else if (keycode == 100)
-		ft_lstiter((*scene).edges, translate(1, 0));
-	else if (keycode == 61)
-		(*scene).scale += 2;
-	 else if (keycode == 45)
-		(*scene).scale -= 2;
-	//if (keycode == 65307)
-	//	return (mlx_loop_end((*scene).xlib.mlx_ptr));
-	render_frame(scene);
-	return (0);
+	xlib = (*(t_scene *)param).xlib;
+	edges = (*(t_scene *)param).edges;
+	if (mlx_is_key_down(xlib, MLX_KEY_ESCAPE))
+		mlx_close_window(xlib);
+	if (mlx_is_key_down(xlib, MLX_KEY_UP))
+		translate(edges, 0, -1);
+	if (mlx_is_key_down(xlib, MLX_KEY_DOWN))
+		translate(edges, 0, 1);
+	if (mlx_is_key_down(xlib, MLX_KEY_LEFT))
+		translate(edges, -1, 0);
+	if (mlx_is_key_down(xlib, MLX_KEY_RIGHT))
+		translate(edges, 1, 0);
+	if (mlx_is_key_down(xlib, MLX_KEY_EQUAL))
+		(*(t_scene *)param).scale += 1;
+	if (mlx_is_key_down(xlib, MLX_KEY_MINUS))
+		(*(t_scene *)param).scale -= 1;
+	draw_edges(param);
+	ft_printf("Rendering \r");
 }
 
 void	render_wireframe(t_scene *scene)
 {
-	t_xlib	*xlib;
-
-	xlib = &(*scene).xlib;
-	(*xlib).mlx_ptr = mlx_init(WIDTH, HEIGHT, TITLE, true);
-	(*xlib).img_ptr = mlx_new_image((*xlib).mlx_ptr, 256, 256);	
-
-	mlx_put_pixel((*xlib).img_ptr, 0, 0, 0xFF0000FF);
-	mlx_loop((*xlib).mlx_ptr);
-	mlx_terminate((*xlib).mlx_ptr);
-
+	(*scene).xlib = mlx_init(WIDTH, HEIGHT, TITLE, true);
+	(*scene).image = mlx_new_image((*scene).xlib, WIDTH, HEIGHT);
+	mlx_image_to_window((*scene).xlib, (*scene).image, 0, 0);
+	mlx_loop_hook((*scene).xlib, render_frame, scene);
+	mlx_loop((*scene).xlib);
+	mlx_terminate((*scene).xlib);
 }

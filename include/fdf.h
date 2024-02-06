@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/06 19:26:54 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:21:54 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,12 @@
 # define HEIGHT 720
 
 /* ************************************************************************** */
-/*                           Definition of the Xlib Structure                 */
-/* ************************************************************************** */
-typedef struct s_xlib
-{
-	void			*mlx_ptr;
-	void			*win_ptr;
-	void			*img_ptr;
-	char			*img_addr;
-	int				bits_per_pixel;
-	int				size_line;
-	int				endian;
-}					t_xlib;
-
-/* ************************************************************************** */
 /*                           Definition of the Scene Structure                */
 /* ************************************************************************** */
 typedef struct s_scene
 {
-	t_xlib			xlib;
+	mlx_t			*xlib;
+	mlx_image_t		*image;
 	t_list			*edges;
 	unsigned int	scale;
 }					t_scene;
@@ -74,7 +61,7 @@ void				render_wireframe(t_scene *scene);
 /* ************************************************************************** */
 /*                                Transform                                   */
 /* ************************************************************************** */
-void				*translate(int dx, int dy);
+void				translate(t_list *lst, int dx, int dy);
 void				center(t_list **edges, int width, int height);
 
 /* ************************************************************************** */

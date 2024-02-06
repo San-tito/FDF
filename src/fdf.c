@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:35 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/06 19:26:39 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:22:17 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	main(int argc, char **argv)
 {
 	t_scene	scene;
 
-	scene.xlib = (t_xlib){};
+	scene.xlib = NULL;
+	scene.image = NULL;
 	scene.edges = NULL;
 	scene.scale = 1;
 	if (argc != 2)

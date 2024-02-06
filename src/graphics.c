@@ -6,31 +6,13 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/01 12:41:34 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:39:24 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	pixel_put(t_xlib xlib, int x, int y, unsigned int color)
-{
-	char	*pixel;
-	int		i;
-
-	i = xlib.bits_per_pixel - 8;
-	pixel = xlib.img_addr + ((xlib.size_line * y) + (x * (xlib.bits_per_pixel
-					/ 8)));
-	while (i >= 0)
-	{
-		if (xlib.endian != 0)
-			*pixel++ = (color >> i) & 0xFF;
-		else
-			*pixel++ = (color >> (xlib.bits_per_pixel - 8 - i)) & 0xFF;
-		i -= 8;
-	}
-}
-
-static void	draw_line(t_scene *scene, t_edge *p0, t_edge *p1)
+void	draw_line(t_scene *scene, t_edge *p0, t_edge *p1)
 {
 	int	x0;
 	int	y0;
@@ -54,7 +36,7 @@ static void	draw_line(t_scene *scene, t_edge *p0, t_edge *p1)
 	err = dx + dy;
 	while (1)
 	{
-		pixel_put((*scene).xlib, x0, y0, p0->color);
+		mlx_put_pixel((*scene).image, x0, y0, p0->color);
 		if (x0 == x1 && y0 == y1)
 			break ;
 		e2 = 2 * err;
