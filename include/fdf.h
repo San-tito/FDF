@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/06 20:21:54 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/06 23:28:44 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ typedef struct s_scene
 /* ************************************************************************** */
 typedef struct s_edge
 {
-	int				x;
-	int				y;
-	int				z;
+	unsigned int	x;
+	unsigned int	y;
+	unsigned int	z;
 	unsigned int	color;
 }					t_edge;
 
@@ -62,6 +62,8 @@ void				render_wireframe(t_scene *scene);
 /*                                Transform                                   */
 /* ************************************************************************** */
 void				translate(t_list *lst, int dx, int dy);
+
+void				scale_factor(t_scene *scene, int factor);
 void				center(t_list **edges, int width, int height);
 
 /* ************************************************************************** */

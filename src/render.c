@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 01:10:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/06 20:50:55 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/06 23:28:20 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	render_frame(void *param)
 	if (mlx_is_key_down(xlib, MLX_KEY_RIGHT))
 		translate(edges, 1, 0);
 	if (mlx_is_key_down(xlib, MLX_KEY_EQUAL))
-		(*(t_scene *)param).scale += 1;
+		scale_factor((t_scene *)param, 1);
 	if (mlx_is_key_down(xlib, MLX_KEY_MINUS))
-		(*(t_scene *)param).scale -= 1;
+		scale_factor((t_scene *)param, -1);
 	draw_edges(param);
 	ft_printf("Rendering \r");
 }
