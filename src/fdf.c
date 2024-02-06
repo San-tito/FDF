@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:35 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/01 12:12:29 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/06 19:26:39 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ int	main(int argc, char **argv)
 	parse_map(*(argv + 1), &scene.edges);
 	render_wireframe(&scene);
 	lstclear(&scene.edges);
-	xlibclear(&scene.xlib);
 	return (EXIT_SUCCESS);
 }

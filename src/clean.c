@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 00:46:40 by sguzman           #+#    #+#             */
-/*   Updated: 2024/01/28 22:22:33 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/06 19:27:04 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,3 @@ void	arrclear(char **arr)
 	free(arr);
 }
 
-void	xlibclear(t_xlib *xlib)
-{
-	if ((*xlib).img_ptr)
-		mlx_destroy_image((*xlib).mlx_ptr, (*xlib).img_ptr);
-	if ((*xlib).win_ptr)
-		mlx_destroy_window((*xlib).mlx_ptr, (*xlib).win_ptr);
-	if ((*xlib).mlx_ptr)
-	{
-		mlx_destroy_display((*xlib).mlx_ptr);
-		free((*xlib).mlx_ptr);
-	}
-}

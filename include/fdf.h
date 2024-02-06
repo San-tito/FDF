@@ -6,27 +6,21 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/01 12:23:03 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/06 19:26:54 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-#ifdef __linux__
-#include "../libs/minilibx_Linux/mlx.h"
-#endif
-#ifdef __APPLE__
-#include "../libs/minilibx_Darwin/mlx.h"
-#endif
-
+# include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "../libs/libftprintf/include/ft_printf.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include <string.h>
 
-# define TITLE " Wireframe Model "
+# define TITLE "Wireframe Model"
 # define WIDTH 1280
 # define HEIGHT 720
 
@@ -88,6 +82,5 @@ void				center(t_list **edges, int width, int height);
 /* ************************************************************************** */
 void				lstclear(t_list **lst);
 void				arrclear(char **arr);
-void				xlibclear(t_xlib *xlib);
 
 #endif

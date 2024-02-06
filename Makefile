@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/02/01 08:55:37 by sguzman          ###   ########.fr        #
+#    Updated: 2024/02/06 19:43:09 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,10 @@ DFLAGS		= -MMD -MF $(@:.o=.d)
 UNAME 		= $(shell uname)
 
 ifeq ($(UNAME), Darwin)
-	MLXFLAGS = -framework OpenGL -framework AppKit -lm
+	MLXFLAGS = -framework Cocoa -framework OpenGL -framework IOKit
 endif
 ifeq ($(UNAME), Linux)
-	MLXFLAGS = -lX11 -lXext -lm 
+	MLXFLAGS = -ldl -lglfw -pthread -lm
 endif
 
 ################################################################################
@@ -41,11 +41,11 @@ INCLUDE_PATH	= ./include
 
 LIBFTPRINTF_PATH = ./libs/libftprintf
 
-MINILIBX_PATH    = ./libs/minilibx_$(UNAME)
+MLX_PATH    = ./libs/MLX42
 
 LIBFTPRINTF		= $(LIBFTPRINTF_PATH)/libftprintf.a
 
-MINILIBX	=	$(MINILIBX_PATH)/libmlx.a $(MINILIBX_PATH)/libmlx_$(UNAME).a
+MLX	=	$(MLX_PATH)/build/libmlx42.a
 
 HEADER		= $(INCLUDE_PATH)/fdf.h
 
@@ -89,7 +89,7 @@ RESET       	= \033[m
 #                                 Makefile rules                               #
 ################################################################################
 
-all: banner $(NAME) 
+all: banner $(MLX) $(NAME) 
 
 banner:
 	@printf "%b" "$(PURPLE)"
@@ -109,7 +109,7 @@ banner:
 	@printf "%b" "$(RESET)"
 
 -include $(DEPS) $(GNL_DEPS) $(DEPS_MAIN)
-$(NAME):	$(OBJS) $(GNL_OBJS) $(OBJS_MAIN) $(LIBFTPRINTF) $(MINILIBX)
+$(NAME):	$(OBJS) $(GNL_OBJS) $(OBJS_MAIN) $(LIBFTPRINTF) $(MLX)
 			@$(CC) $(CFLAGS) $(DFLAGS) -I $(INCLUDE_PATH) $^ $(MLXFLAGS) -o $@ 
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Building program:" "$(CYAN)" $@ "$(GREEN)" "[✓]" "$(RESET)"
 
@@ -117,9 +117,9 @@ $(LIBFTPRINTF):
 			@make bonus -C $(LIBFTPRINTF_PATH) > /dev/null
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Building Libftprintf library:" "$(CYAN)" $@ "$(GREEN)" "[✓]" "$(RESET)"
 
-$(MINILIBX):
-			@make -C $(MINILIBX_PATH) > /dev/null 2> /dev/null
-			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Building Minilibx library:" "$(CYAN)" $@ "$(GREEN)" "[✓]" "$(RESET)"
+$(MLX):
+			@cmake $(MLX_PATH) -B $(MLX_PATH)/build > /dev/null && make -C $(MLX_PATH)/build  > /dev/null
+			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Building Mlx library:" "$(CYAN)" $@ "$(GREEN)" "[✓]" "$(RESET)"
 
 $(OBJS_PATH)/%.o: 	$(SRCS_PATH)/%.c $(HEADER) Makefile
 			@mkdir -p $(dir $@)
@@ -133,7 +133,7 @@ $(OBJS_PATH)/%.o: 	$(GNL_PATH)/%.c $(GNL_HEADER) Makefile
 
 clean:		banner
 			@make $@ -C $(LIBFTPRINTF_PATH) > /dev/null
-			@make $@ -C $(MINILIBX_PATH) > /dev/null
+			@make $@ -C $(MLX_PATH)/build > /dev/null
 			@rm -rf $(OBJS_PATH)
 			@printf "%b%-42s%-42b%b%s%b\n" "$(BLUE)" "$@:" "$(CYAN)" "$(GREEN)" "[✓]" "$(RESET)"
 
@@ -144,4 +144,4 @@ fclean:		banner clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re banner 
+.PHONY:		all clean fclean re banner $(MLX) $(LIBFTPRINTF)
