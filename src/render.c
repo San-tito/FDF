@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 01:10:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/07 16:37:40 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/07 17:46:05 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	render_frame(void *param)
 		scale_factor(scene, 1);
 	if (mlx_is_key_down(xlib, MLX_KEY_MINUS))
 		scale_factor(scene, -1);
-	ft_bzero((*image).pixels, (*image).width * (*image).height * sizeof(int));
+	ft_bzero((*image).pixels, (*image).width * (*image).height
+		* sizeof(unsigned int));
 	draw_edges(param);
 	ft_printf("Rendering \r");
 }

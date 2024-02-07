@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/06 23:28:44 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/07 17:50:11 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ typedef struct s_scene
 /* ************************************************************************** */
 typedef struct s_edge
 {
-	unsigned int	x;
-	unsigned int	y;
-	unsigned int	z;
-	unsigned int	color;
+	int	x;
+	int	y;
+	int	z;
+	int	color;
 }					t_edge;
 
 /* ************************************************************************** */
