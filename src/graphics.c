@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/07 20:10:50 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/07 22:20:28 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,26 @@ void	draw_line(t_scene *scene, t_edge *p0, t_edge *p1)
 	}
 }
 
+t_edge	*find_down(t_list *edges, t_edge *edge)
+{
+	t_list	*current;
+
+	current = (*edges).next;
+	while (current)
+	{
+		if ((*(t_edge *)((*current).content)).x == (*edge).x)
+			return ((t_edge *)((*current).content));
+		current = (*current).next;
+	}
+	return (NULL);
+}
+
 void	draw_edges(t_scene *scene)
 {
 	t_list	*current;
 	t_edge	*current_edge;
 	t_edge	*next_edge;
+	t_edge	*down_edge;
 
 	current = (*scene).edges;
 	while (current && (*current).next)
@@ -79,6 +94,9 @@ void	draw_edges(t_scene *scene)
 		next_edge = (t_edge *)((*((*current).next)).content);
 		if ((*current_edge).y == (*next_edge).y)
 			draw_line(scene, current_edge, next_edge);
+		down_edge = find_down(current, current_edge);
+		if (down_edge)
+			draw_line(scene, current_edge, down_edge);
 		current = (*current).next;
 	}
 }
