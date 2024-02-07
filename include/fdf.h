@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/07 17:50:11 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/07 20:17:20 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define TITLE "Wireframe Model"
 # define WIDTH 1280
-# define HEIGHT 720
+# define HEIGHT 960
 
 /* ************************************************************************** */
 /*                           Definition of the Scene Structure                */
