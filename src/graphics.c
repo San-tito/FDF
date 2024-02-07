@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/07 18:17:28 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/07 20:10:50 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ void	pixel_put(mlx_image_t *image, int x, int y, int color)
 {
 	unsigned char	*pixel;
 
-	pixel = (*image).pixels + (y * image->width + x) * sizeof(int);
-	*(pixel++) = (color >> 24);
-	*(pixel++) = (color >> 16);
-	*(pixel++) = (color >> 8);
-	*(pixel++) = (color & 0xFFFFFF);
+	if (x > (int)(*image).width || x < 0 || y < 0 || y > (int)(*image).height)
+		return ;
+	pixel = (*image).pixels + (y * (*image).width + x) * sizeof(int);
+	*pixel++ = (color >> 24);
+	*pixel++ = (color >> 16);
+	*pixel++ = (color >> 8);
+	*pixel++ = (color & 0xFFFFFF);
 }
 
 void	draw_line(t_scene *scene, t_edge *p0, t_edge *p1)
@@ -75,8 +77,6 @@ void	draw_edges(t_scene *scene)
 	{
 		current_edge = (t_edge *)((*current).content);
 		next_edge = (t_edge *)((*((*current).next)).content);
-		if ((*current_edge).x == (*next_edge).x)
-                        draw_line(scene, current_edge, next_edge);
 		if ((*current_edge).y == (*next_edge).y)
 			draw_line(scene, current_edge, next_edge);
 		current = (*current).next;
