@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/02/08 02:30:51 by sguzman          ###   ########.fr        #
+#    Updated: 2024/02/08 02:56:24 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME		= fdf
 CC 		= cc
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g
 DFLAGS		= -MMD -MF $(@:.o=.d)
 UNAME 		= $(shell uname)
 

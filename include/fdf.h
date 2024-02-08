@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/07 22:38:20 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/08 02:51:01 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_scene
 	mlx_t			*xlib;
 	mlx_image_t		*image;
 	t_list			*edges;
-	unsigned int	scale;
+	int	scale;
 }					t_scene;
 
 /* ************************************************************************** */
