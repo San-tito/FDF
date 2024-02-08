@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/07 22:20:28 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/08 02:48:56 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 void	pixel_put(mlx_image_t *image, int x, int y, int color)
 {
+	int				i;
 	unsigned char	*pixel;
 
-	if (x > (int)(*image).width || x < 0 || y < 0 || y > (int)(*image).height)
-		return ;
 	pixel = (*image).pixels + (y * (*image).width + x) * sizeof(int);
-	*pixel++ = (color >> 24);
-	*pixel++ = (color >> 16);
-	*pixel++ = (color >> 8);
-	*pixel++ = (color & 0xFFFFFF);
+	i = sizeof(int) * 6;
+	while (i >= 0)
+	{
+		*pixel++ = (color >> i) & 0xFF;
+		i -= sizeof(int) * 2;
+	}
 }
 
 void	draw_line(t_scene *scene, t_edge *p0, t_edge *p1)

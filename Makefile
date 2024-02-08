@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/02/06 19:43:09 by sguzman          ###   ########.fr        #
+#    Updated: 2024/02/08 02:30:51 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ RESET       	= \033[m
 #                                 Makefile rules                               #
 ################################################################################
 
-all: banner $(MLX) $(NAME) 
+all: banner $(NAME) 
 
 banner:
 	@printf "%b" "$(PURPLE)"
