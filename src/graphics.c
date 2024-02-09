@@ -6,23 +6,26 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/08 02:48:56 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/09 19:04:31 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	pixel_put(mlx_image_t *image, int x, int y, int color)
+void	pixel_put(mlx_image_t *image, size_t x, size_t y, size_t color)
 {
 	int				i;
 	unsigned char	*pixel;
 
-	pixel = (*image).pixels + (y * (*image).width + x) * sizeof(int);
-	i = sizeof(int) * 6;
-	while (i >= 0)
+	if (x < (*image).width && y < (*image).height)
 	{
-		*pixel++ = (color >> i) & 0xFF;
-		i -= sizeof(int) * 2;
+		pixel = (*image).pixels + (y * (*image).width + x) * sizeof(int);
+		i = sizeof(int) * 6;
+		while (i >= 0)
+		{
+			*pixel++ = (color >> i) & 0xFF;
+			i -= sizeof(int) * 2;
+		}
 	}
 }
 
@@ -67,7 +70,7 @@ void	draw_line(t_scene *scene, t_edge *p0, t_edge *p1)
 	}
 }
 
-t_edge	*find_down(t_list *edges, t_edge *edge)
+static t_edge	*find_down(t_list *edges, t_edge *edge)
 {
 	t_list	*current;
 

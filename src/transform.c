@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 08:28:33 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/06 23:27:17 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/09 19:19:56 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	translate(t_list *lst, int tx, int ty)
 	}
 }
 
-void	scale_factor(t_scene *scene, int factor)
+void	zoom(t_scene *scene, int factor)
 {
 	(*scene).scale += factor;
 }
