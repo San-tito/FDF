@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 08:28:33 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/09 19:19:56 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/12 16:38:25 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	translate(t_list *lst, int tx, int ty)
 	while (current)
 	{
 		edge = (*current).content;
-		(*edge).x += tx;
-		(*edge).y += ty;
+		(*edge).axis += tx;
+		(*edge).ordinate += ty;
 		current = (*current).next;
 	}
 }

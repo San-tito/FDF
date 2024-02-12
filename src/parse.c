@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:11:24 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/01 06:54:31 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/12 16:15:18 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ static int	parse_color(char *token)
 	return (color);
 }
 
-static t_edge	*parse_coord(int axis, int ordinate, char *token)
+static t_edge	*parse_coord(int x, int y, char *token)
 {
 	t_edge	*edge;
 
 	edge = ft_calloc(1, sizeof(t_edge));
 	if (!edge)
 		return (NULL);
-	(*edge).x = axis;
-	(*edge).y = ordinate;
-	(*edge).z = ft_atoi(token);
+	(*edge).axis = x;
+	(*edge).ordinate = y;
+	(*edge).altitude = ft_atoi(token);
 	(*edge).color = parse_color(token);
 	return (edge);
 }

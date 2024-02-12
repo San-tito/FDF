@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/09 19:04:31 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/12 16:55:55 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,8 @@ void	pixel_put(mlx_image_t *image, size_t x, size_t y, size_t color)
 	}
 }
 
-void	draw_line(t_scene *scene, t_edge *p0, t_edge *p1)
+void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
 {
-	int	x0;
-	int	y0;
-	int	x1;
-	int	y1;
 	int	dx;
 	int	sx;
 	int	dy;
@@ -42,30 +38,24 @@ void	draw_line(t_scene *scene, t_edge *p0, t_edge *p1)
 	int	err;
 	int	e2;
 
-	x0 = ((*p0).x * (*scene).scale);
-	y0 = ((*p0).y * (*scene).scale);
-	x1 = ((*p1).x * (*scene).scale);
-	y1 = ((*p1).y * (*scene).scale);
-	dx = abs(x1 - x0);
-	sx = x0 < x1 ? 1 : -1;
-	dy = -abs(y1 - y0);
-	sy = y0 < y1 ? 1 : -1;
+	dx = abs(p1.x - p0.x);
+	sx = copysign(1, p1.x - p0.x);
+	dy = -abs(p1.y - p0.y);
+	sy = copysign(1, p1.y - p0.y);
 	err = dx + dy;
-	while (42)
+	while (!(p0.x == p1.x && p0.y == p1.y))
 	{
-		pixel_put((*scene).image, x0, y0, (*p0).color);
-		if (x0 == x1 && y0 == y1)
-			break ;
+		pixel_put(image, p0.x, p0.y, p0.color);
 		e2 = 2 * err;
 		if (e2 >= dy)
 		{
 			err += dy;
-			x0 += sx;
+			p0.x += sx;
 		}
 		if (e2 <= dx)
 		{
 			err += dx;
-			y0 += sy;
+			p0.y += sy;
 		}
 	}
 }
@@ -77,7 +67,7 @@ static t_edge	*find_down(t_list *edges, t_edge *edge)
 	current = (*edges).next;
 	while (current)
 	{
-		if ((*(t_edge *)((*current).content)).x == (*edge).x)
+		if ((*(t_edge *)((*current).content)).axis == (*edge).axis)
 			return ((t_edge *)((*current).content));
 		current = (*current).next;
 	}
@@ -96,11 +86,19 @@ void	draw_edges(t_scene *scene)
 	{
 		current_edge = (t_edge *)((*current).content);
 		next_edge = (t_edge *)((*((*current).next)).content);
-		if ((*current_edge).y == (*next_edge).y)
-			draw_line(scene, current_edge, next_edge);
+		if ((*current_edge).ordinate == (*next_edge).ordinate)
+			draw_line((*scene).image, (t_point){current_edge->axis
+				* (*scene).scale, current_edge->ordinate * (*scene).scale,
+				current_edge->color}, (t_point){next_edge->axis
+				* (*scene).scale, next_edge->ordinate * (*scene).scale,
+				next_edge->color});
 		down_edge = find_down(current, current_edge);
 		if (down_edge)
-			draw_line(scene, current_edge, down_edge);
+			draw_line((*scene).image, (t_point){current_edge->axis
+				* (*scene).scale, current_edge->ordinate * (*scene).scale,
+				current_edge->color}, (t_point){down_edge->axis
+				* (*scene).scale, down_edge->ordinate * (*scene).scale,
+				down_edge->color});
 		current = (*current).next;
 	}
 }

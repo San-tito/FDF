@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/09 19:19:43 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/12 16:42:02 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,21 @@ typedef struct s_scene
 /* ************************************************************************** */
 typedef struct s_edge
 {
-	size_t		x;
-	size_t		y;
-	size_t		z;
+	size_t		axis;
+	size_t		ordinate;
+	size_t		altitude;
 	size_t		color;
 }				t_edge;
+
+/* ************************************************************************** */
+/*                           Definition of the Point Structure                */
+/* ************************************************************************** */
+typedef struct s_point
+{
+	int			x;
+	int			y;
+	int			color;
+}				t_point;
 
 /* ************************************************************************** */
 /*                            Parsing Helpers                                 */
