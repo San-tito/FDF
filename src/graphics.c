@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/12 16:55:55 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/12 16:58:07 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
 	int	dy;
 	int	sy;
 	int	err;
-	int	e2;
 
 	dx = abs(p1.x - p0.x);
 	sx = copysign(1, p1.x - p0.x);
@@ -46,13 +45,12 @@ void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
 	while (!(p0.x == p1.x && p0.y == p1.y))
 	{
 		pixel_put(image, p0.x, p0.y, p0.color);
-		e2 = 2 * err;
-		if (e2 >= dy)
+		if (err * 2 >= dy)
 		{
 			err += dy;
 			p0.x += sx;
 		}
-		if (e2 <= dx)
+		if (err * 2 <= dx)
 		{
 			err += dx;
 			p0.y += sy;
