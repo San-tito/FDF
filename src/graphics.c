@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/12 16:58:07 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/12 20:59:49 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,20 @@ void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
 	}
 }
 
+static void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
+{
+	t_point	p0;
+	t_point	p1;
+
+	p0.x = (*e0).axis * (*scene).scale;
+	p0.y = (*e0).ordinate * (*scene).scale;
+	p0.color = (*e0).color;
+	p1.x = (*e1).axis * (*scene).scale;
+	p1.y = (*e1).ordinate * (*scene).scale;
+	p1.color = (*e1).color;
+	draw_line((*scene).image, p0, p1);
+}
+
 static t_edge	*find_down(t_list *edges, t_edge *edge)
 {
 	t_list	*current;
@@ -75,28 +89,20 @@ static t_edge	*find_down(t_list *edges, t_edge *edge)
 void	draw_edges(t_scene *scene)
 {
 	t_list	*current;
-	t_edge	*current_edge;
-	t_edge	*next_edge;
-	t_edge	*down_edge;
+	t_edge	*edge;
+	t_edge	*next;
+	t_edge	*down;
 
 	current = (*scene).edges;
 	while (current && (*current).next)
 	{
-		current_edge = (t_edge *)((*current).content);
-		next_edge = (t_edge *)((*((*current).next)).content);
-		if ((*current_edge).ordinate == (*next_edge).ordinate)
-			draw_line((*scene).image, (t_point){current_edge->axis
-				* (*scene).scale, current_edge->ordinate * (*scene).scale,
-				current_edge->color}, (t_point){next_edge->axis
-				* (*scene).scale, next_edge->ordinate * (*scene).scale,
-				next_edge->color});
-		down_edge = find_down(current, current_edge);
-		if (down_edge)
-			draw_line((*scene).image, (t_point){current_edge->axis
-				* (*scene).scale, current_edge->ordinate * (*scene).scale,
-				current_edge->color}, (t_point){down_edge->axis
-				* (*scene).scale, down_edge->ordinate * (*scene).scale,
-				down_edge->color});
+		edge = (t_edge *)((*current).content);
+		next = (t_edge *)((*((*current).next)).content);
+		if ((*edge).ordinate == (*next).ordinate)
+			draw_segment(scene, edge, next);
+		down = find_down(current, edge);
+		if (down)
+			draw_segment(scene, edge, down);
 		current = (*current).next;
 	}
 }
