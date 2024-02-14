@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 08:28:33 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/12 16:38:25 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/14 19:25:45 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,13 @@ void	translate(t_list *lst, int tx, int ty)
 void	zoom(t_scene *scene, int factor)
 {
 	(*scene).scale += factor;
+}
+
+void	rotate(t_scene *scene, float increment)
+{
+	(*scene).radians += increment;
+	while ((*scene).radians < 0)
+		(*scene).radians += 2 * M_PI;
+	while ((*scene).radians >= 2 * M_PI)
+		(*scene).radians -= 2 * M_PI;
 }
