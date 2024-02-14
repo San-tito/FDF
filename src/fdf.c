@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:35 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/12 20:58:52 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/14 16:46:25 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	main(int argc, char **argv)
 	t_scene	scene;
 
 	scene = (t_scene){};
-	scene.scale = 4;
-	scene.angle = 45;
+	scene.scale = 10;
+	scene.radians = 0;
 	if (argc != 2)
 		return (EXIT_SUCCESS);
 	parse_map(*(argv + 1), &scene.edges);

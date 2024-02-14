@@ -6,13 +6,13 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/12 20:59:49 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/14 16:46:13 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	pixel_put(mlx_image_t *image, size_t x, size_t y, size_t color)
+static void	pixel_put(mlx_image_t *image, size_t x, size_t y, size_t color)
 {
 	int				i;
 	unsigned char	*pixel;
@@ -29,7 +29,7 @@ void	pixel_put(mlx_image_t *image, size_t x, size_t y, size_t color)
 	}
 }
 
-void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
+static void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
 {
 	int	dx;
 	int	sx;
@@ -60,14 +60,20 @@ void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
 
 static void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
 {
-	t_point	p0;
-	t_point	p1;
+	t_point		p0;
+	t_point		p1;
+	const float	sine = sin((*scene).radians);
+	const float	cosine = cos((*scene).radians);
 
-	p0.x = (*e0).axis * (*scene).scale;
-	p0.y = (*e0).ordinate * (*scene).scale;
+	p0.x = (*e0).axis * (*scene).scale * cosine - (*e0).ordinate
+		* (*scene).scale * sine;
+	p0.y = (*e0).axis * (*scene).scale * sine + (*e0).ordinate * (*scene).scale
+		* cosine;
 	p0.color = (*e0).color;
-	p1.x = (*e1).axis * (*scene).scale;
-	p1.y = (*e1).ordinate * (*scene).scale;
+	p1.x = (*e1).axis * (*scene).scale * cosine - (*e1).ordinate
+		* (*scene).scale * sine;
+	p1.y = (*e1).axis * (*scene).scale * sine + (*e1).ordinate * (*scene).scale
+		* cosine;
 	p1.color = (*e1).color;
 	draw_line((*scene).image, p0, p1);
 }

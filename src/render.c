@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 01:10:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/12 15:18:16 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/14 16:47:36 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	render_frame(t_scene *scene)
 	image = (*scene).image;
 	ft_bzero((*image).pixels, (*image).width * (*image).height * sizeof(int));
 	draw_edges(scene);
-	ft_printf("Rendering \r");
+	ft_printf("Rendering \nx->%i\ny->%i\n\r",
+		(*(t_edge *)(*(*scene).edges).content).axis,
+		(*(t_edge *)(*(*scene).edges).content).ordinate);
 }
 
 void	key_hook(t_scene *scene)
@@ -53,11 +55,17 @@ void	key_hook(t_scene *scene)
 	if (mlx_is_key_down(xlib, MLX_KEY_RIGHT) || mlx_is_key_down(xlib,
 			MLX_KEY_D))
 		translate(edges, 1, 0);
+	if ((mlx_is_key_down(xlib, MLX_KEY_LEFT) || mlx_is_key_down(xlib,
+				MLX_KEY_A)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
+		(*scene).radians += 0.1;
+	if ((mlx_is_key_down(xlib, MLX_KEY_RIGHT) || mlx_is_key_down(xlib,
+				MLX_KEY_D)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
+		(*scene).radians -= 0.1;
 }
 
 void	render_wireframe(t_scene *scene)
 {
-	(*scene).xlib = mlx_init(WIDTH, HEIGHT, TITLE, true);
+	(*scene).xlib = mlx_init(WIDTH, HEIGHT, TITLE, 0);
 	if (!(*scene).xlib)
 		return (clean_halt(scene));
 	(*scene).image = mlx_new_image((*scene).xlib, WIDTH, HEIGHT);
