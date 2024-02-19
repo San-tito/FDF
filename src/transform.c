@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 08:28:33 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/14 19:25:45 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/19 20:11:31 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	zoom(t_scene *scene, int factor)
 	(*scene).scale += factor;
 }
 
-void	rotate(t_scene *scene, float increment)
+void	rotate(t_scene *scene, float angle)
 {
-	(*scene).radians += increment;
-	while ((*scene).radians < 0)
-		(*scene).radians += 2 * M_PI;
-	while ((*scene).radians >= 2 * M_PI)
-		(*scene).radians -= 2 * M_PI;
+	(*scene).angle += angle;
+	while ((*scene).angle < 0)
+		(*scene).angle += 2 * M_PI;
+	while ((*scene).angle >= 2 * M_PI)
+		(*scene).angle -= 2 * M_PI;
 }

@@ -6,18 +6,18 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/14 19:45:35 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/19 20:09:03 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	pixel_put(mlx_image_t *image, size_t x, size_t y, size_t color)
+static void	pixel_put(mlx_image_t *image, int x, int y, int color)
 {
 	int				i;
 	unsigned char	*pixel;
 
-	if (x < (*image).width && y < (*image).height)
+	if ((unsigned)x < (*image).width && (unsigned)y < (*image).height)
 	{
 		pixel = (*image).pixels + (y * (*image).width + x) * sizeof(int);
 		i = sizeof(int) * 6;
@@ -72,22 +72,17 @@ static void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
 
 static void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
 {
-	t_point	p0;
-	t_point	p1;
-	float	sine;
-	float	cosine;
+	t_point		p0;
+	t_point		p1;
+	const float	scale = (*scene).scale;
+	const float	sine = sin((*scene).angle);
+	const float	cosine = cos((*scene).angle);
 
-	sine = sin((*scene).radians);
-	cosine = cos((*scene).radians);
-	p0.x = floor((float)(*e0).axis * (float)(*scene).scale * cosine
-			- (float)(*e0).ordinate * (float)(*scene).scale * sine);
-	p0.y = floor((float)(*e0).axis * (float)(*scene).scale * sine
-			+ (float)(*e0).ordinate * (float)(*scene).scale * cosine);
+	p0.x = (*e0).axis * scale * cosine - (*e0).ordinate * scale * sine;
+	p0.y = (*e0).axis * scale * sine + (*e0).ordinate * scale * cosine;
 	p0.color = (*e0).color;
-	p1.x = floor((float)(*e1).axis * (float)(*scene).scale * cosine
-			- (float)(*e1).ordinate * (float)(*scene).scale * sine);
-	p1.y = floor((float)(*e1).axis * (float)(*scene).scale * sine
-			+ (float)(*e1).ordinate * (float)(*scene).scale * cosine);
+	p1.x = (*e1).axis * scale * cosine - (*e1).ordinate * scale * sine;
+	p1.y = (*e1).axis * scale * sine + (*e1).ordinate * scale * cosine;
 	p1.color = (*e1).color;
 	draw_line((*scene).image, p0, p1);
 }

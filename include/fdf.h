@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/14 19:24:39 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/19 20:11:44 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_scene
 	mlx_image_t	*image;
 	t_list		*edges;
 	size_t		scale;
-	float		radians;
+	float		angle;
 }				t_scene;
 
 /* ************************************************************************** */
@@ -41,10 +41,10 @@ typedef struct s_scene
 /* ************************************************************************** */
 typedef struct s_edge
 {
-	size_t		axis;
-	size_t		ordinate;
-	size_t		altitude;
-	size_t		color;
+	int			axis;
+	int			ordinate;
+	int			altitude;
+	int			color;
 }				t_edge;
 
 /* ************************************************************************** */
@@ -74,7 +74,7 @@ void			render_wireframe(t_scene *scene);
 /* ************************************************************************** */
 void			translate(t_list *lst, int dx, int dy);
 void			zoom(t_scene *scene, int factor);
-void			rotate(t_scene *scene, float increment);
+void			rotate(t_scene *scene, float angle);
 
 /* ************************************************************************** */
 /*                             Memory Freers                                  */

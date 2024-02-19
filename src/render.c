@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 01:10:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/14 19:25:27 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/19 20:13:13 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,6 @@ void	clean_halt(t_scene *scene)
 	lstclear(&(*scene).edges);
 	perror("Error");
 	exit(EXIT_FAILURE);
-}
-
-void	render_frame(t_scene *scene)
-{
-	mlx_image_t	*image;
-
-	image = (*scene).image;
-	ft_bzero((*image).pixels, (*image).width * (*image).height * sizeof(int));
-	draw_edges(scene);
-	ft_printf("Rendering \nx->%i\ny->%i\n\r",
-		(*(t_edge *)(*(*scene).edges).content).axis,
-		(*(t_edge *)(*(*scene).edges).content).ordinate);
 }
 
 void	key_hook(t_scene *scene)
@@ -57,10 +45,23 @@ void	key_hook(t_scene *scene)
 		translate(edges, 1, 0);
 	if ((mlx_is_key_down(xlib, MLX_KEY_LEFT) || mlx_is_key_down(xlib,
 				MLX_KEY_A)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, 0.1);
+		rotate(scene, 1.0);
 	if ((mlx_is_key_down(xlib, MLX_KEY_RIGHT) || mlx_is_key_down(xlib,
 				MLX_KEY_D)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, -0.1);
+		rotate(scene, -1.0);
+}
+
+void	render_frame(t_scene *scene)
+{
+	mlx_image_t	*image;
+
+	image = (*scene).image;
+	ft_bzero((*image).pixels, (*image).width * (*image).height * sizeof(int));
+	draw_edges(scene);
+	key_hook(scene);
+	ft_printf("Rendering \nx->%i\ny->%i\n\r",
+		(*(t_edge *)(*(*scene).edges).content).axis,
+		(*(t_edge *)(*(*scene).edges).content).ordinate);
 }
 
 void	render_wireframe(t_scene *scene)
@@ -73,7 +74,6 @@ void	render_wireframe(t_scene *scene)
 		return (clean_halt(scene));
 	if (mlx_image_to_window((*scene).xlib, (*scene).image, 0, 0) < 0)
 		return (clean_halt(scene));
-	mlx_loop_hook((*scene).xlib, (void (*)(void *))key_hook, scene);
 	mlx_loop_hook((*scene).xlib, (void (*)(void *))render_frame, scene);
 	mlx_close_hook((*scene).xlib, (void (*)(void *))mlx_close_window,
 		(*scene).xlib);
