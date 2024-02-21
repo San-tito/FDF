@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/19 20:09:03 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/21 19:48:47 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ static void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
 	}
 }
 
-static void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
+void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
 {
 	t_point		p0;
 	t_point		p1;
 	const float	scale = (*scene).scale;
-	const float	sine = sin((*scene).angle);
-	const float	cosine = cos((*scene).angle);
+	const float	sine = sin(0);
+	const float	cosine = cos(0);
 
 	p0.x = (*e0).axis * scale * cosine - (*e0).ordinate * scale * sine;
 	p0.y = (*e0).axis * scale * sine + (*e0).ordinate * scale * cosine;
@@ -87,7 +87,7 @@ static void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
 	draw_line((*scene).image, p0, p1);
 }
 
-static t_edge	*find_down(t_list *edges, t_edge *edge)
+t_edge	*find_down(t_list *edges, t_edge *edge)
 {
 	t_list	*current;
 

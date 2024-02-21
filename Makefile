@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/02/09 17:38:04 by sguzman          ###   ########.fr        #
+#    Updated: 2024/02/21 19:47:50 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME		= fdf
 CC 		= cc
-CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS		= -Wall -Wextra -Werror -Ofast -fsanitize=address -g
 DFLAGS		= -MMD -MF $(@:.o=.d)
 UNAME 		= $(shell uname)
 
@@ -123,7 +123,7 @@ $(MLX):
 
 $(OBJS_PATH)/%.o: 	$(SRCS_PATH)/%.c $(HEADER) Makefile
 			@mkdir -p $(dir $@)
-			@$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(INCLUDE_PATH)
+			@$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I $(INCLUDE_PATH) -I $(LIBFTPRINTF_PATH)/include -I $(MLX_PATH)/include
 			@printf "%b%-42s%-42b%-24s%b%s%b\n" "$(BLUE)" "Compiling:" "$(CYAN)" $< "$(GREEN)" "[✓]" "$(RESET)"
 
 $(OBJS_PATH)/%.o: 	$(GNL_PATH)/%.c $(GNL_HEADER) Makefile

@@ -6,15 +6,15 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/19 20:11:44 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/21 19:44:53 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "../libs/MLX42/include/MLX42/MLX42.h"
-# include "../libs/libftprintf/include/ft_printf.h"
+# include "MLX42/MLX42.h"
+# include "ft_printf.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -23,6 +23,7 @@
 # define TITLE "Wireframe Model"
 # define WIDTH 1280
 # define HEIGHT 960
+# define PI 3.14159265358979323846
 
 /* ************************************************************************** */
 /*                           Definition of the Scene Structure                */
