@@ -24,42 +24,46 @@ void	clean_halt(t_scene *scene)
 void	key_hook(t_scene *scene)
 {
 	mlx_t	*xlib;
-	t_list	*edges;
 
 	xlib = (*scene).xlib;
-	edges = (*scene).edges;
 	if (mlx_is_key_down(xlib, MLX_KEY_ESCAPE))
 		mlx_close_window(xlib);
-	if (mlx_is_key_down(xlib, MLX_KEY_EQUAL))
+	else if (mlx_is_key_down(xlib, MLX_KEY_EQUAL))
 		zoom(scene, 1);
-	if (mlx_is_key_down(xlib, MLX_KEY_MINUS))
+	else if (mlx_is_key_down(xlib, MLX_KEY_MINUS))
 		zoom(scene, -1);
-	if (mlx_is_key_down(xlib, MLX_KEY_UP) || mlx_is_key_down(xlib, MLX_KEY_W))
-		translate(edges, 0, -1);
-	if (mlx_is_key_down(xlib, MLX_KEY_DOWN) || mlx_is_key_down(xlib, MLX_KEY_S))
-		translate(edges, 0, 1);
-	if (mlx_is_key_down(xlib, MLX_KEY_LEFT) || mlx_is_key_down(xlib, MLX_KEY_A))
-		translate(edges, -1, 0);
-	if (mlx_is_key_down(xlib, MLX_KEY_RIGHT) || mlx_is_key_down(xlib,
-			MLX_KEY_D))
-		translate(edges, 1, 0);
-	if ((mlx_is_key_down(xlib, MLX_KEY_LEFT) || mlx_is_key_down(xlib,
+	else if (mlx_is_key_down(xlib, MLX_KEY_UP) || mlx_is_key_down(xlib, MLX_KEY_W))
+		translate(scene, 0, -1);
+	else if (mlx_is_key_down(xlib, MLX_KEY_DOWN) || mlx_is_key_down(xlib, MLX_KEY_S))
+		translate(scene, 0, 1);
+	else if (mlx_is_key_down(xlib, MLX_KEY_A))
+		translate(scene, -1, 0);
+	else if (mlx_is_key_down(xlib, MLX_KEY_D))
+		translate(scene, 1, 0);
+	else if ((mlx_is_key_down(xlib, MLX_KEY_LEFT) || mlx_is_key_down(xlib,
 				MLX_KEY_A)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, 1.0);
-	if ((mlx_is_key_down(xlib, MLX_KEY_RIGHT) || mlx_is_key_down(xlib,
+		rotate(scene, 0.1);
+	else if ((mlx_is_key_down(xlib, MLX_KEY_RIGHT) || mlx_is_key_down(xlib,
 				MLX_KEY_D)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, -1.0);
+		rotate(scene, -0.1);
+	else
+		return ;
+	scene->renderize = 1;	
 }
 
 void	render_frame(t_scene *scene)
 {
 	mlx_image_t	*image;
 
-	image = (*scene).image;
-	ft_bzero((*image).pixels, (*image).width * (*image).height * sizeof(int));
-	draw_edges(scene);
 	key_hook(scene);
-	ft_printf("Rendering frame... Press 'ESC' to exit.\r");
+	if (scene->renderize)
+	{
+		image = (*scene).image;
+		ft_bzero((*image).pixels, (*image).width * (*image).height * sizeof(int));
+		draw_edges(scene);
+		//ft_printf("Rendering frame... Press 'ESC' to exit.\r");
+		scene->renderize = 0;
+	}
 }
 
 void	render_wireframe(t_scene *scene)
@@ -75,6 +79,7 @@ void	render_wireframe(t_scene *scene)
 	mlx_loop_hook((*scene).xlib, (void (*)(void *))render_frame, scene);
 	mlx_close_hook((*scene).xlib, (void (*)(void *))mlx_close_window,
 		(*scene).xlib);
+	draw_edges(scene);
 	mlx_loop((*scene).xlib);
 	mlx_terminate((*scene).xlib);
 }

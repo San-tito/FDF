@@ -48,21 +48,26 @@ static void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
 	int	dy;
 	int	sy;
 	int	err;
+	int	err2;
 
 	dx = abs(p1.x - p0.x);
-	sx = copysign(1, p1.x - p0.x);
+	sx = (p0.x < p1.x) + (p0.x > p1.x) * -1;
 	dy = -abs(p1.y - p0.y);
-	sy = copysign(1, p1.y - p0.y);
+	sy = (p0.y < p1.y) + (p0.y > p1.y) * -1;
 	err = dx + dy;
-	while (!(p0.x == p1.x && p0.y == p1.y))
+	while (1)
 	{
 		pixel_put(image, p0.x, p0.y, get_color(p0.color, p1.color));
-		if (err * 2 >= dy)
+		if (p0.x == p1.x && p0.y == p1.y)
+			break ;
+		//printf("soybobo");
+		err2 = 2 * err;
+		if (err2 >= dy && p0.x != p1.x)
 		{
 			err += dy;
 			p0.x += sx;
 		}
-		if (err * 2 <= dx)
+		if (err2 <= dx && p0.y != p1.y)
 		{
 			err += dx;
 			p0.y += sy;
@@ -74,16 +79,22 @@ void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
 {
 	t_point		p0;
 	t_point		p1;
-	const float	scale = (*scene).scale;
-	const float	sine = sin((*scene).angle);
-	const float	cosine = cos((*scene).angle);
+	double	scale = (*scene).scale;
+	double	sine = sin((*scene).angle);
+	double	cosine = cos((*scene).angle);
 
+	printf("Scale is: %1f, sine is %1f, cosine is %1f\n.", scale, sine, cosine);
 	p0.x = (*e0).axis * scale * cosine - (*e0).ordinate * scale * sine;
 	p0.y = (*e0).axis * scale * sine + (*e0).ordinate * scale * cosine;
 	p0.color = (*e0).color;
 	p1.x = (*e1).axis * scale * cosine - (*e1).ordinate * scale * sine;
 	p1.y = (*e1).axis * scale * sine + (*e1).ordinate * scale * cosine;
 	p1.color = (*e1).color;
+
+	p0.x += scene->translate[0];
+	p0.y += scene->translate[1];
+	p1.x += scene->translate[0];
+	p1.y += scene->translate[1];
 	draw_line((*scene).image, p0, p1);
 }
 
