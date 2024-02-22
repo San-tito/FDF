@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 01:10:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/23 00:22:35 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/23 00:52:18 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	key_hook(t_scene *scene)
 		translate(scene, 1, 0);
 	if ((mlx_is_key_down(xlib, MLX_KEY_LEFT) || mlx_is_key_down(xlib,
 				MLX_KEY_A)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, 1.0);
+		rotate(scene, 0.1);
 	if ((mlx_is_key_down(xlib, MLX_KEY_RIGHT) || mlx_is_key_down(xlib,
 				MLX_KEY_D)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, -1.0);
+		rotate(scene, -0.1);
 }
 
 void	render_frame(t_scene *scene)

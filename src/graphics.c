@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/23 00:29:32 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/23 00:49:32 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
 	const float	sine = sin((*scene).angle);
 	const float	cosine = cos((*scene).angle);
 
-	p0.x = (*e0).axis * scale * cosine - (*e0).ordinate * scale * sine;
-	p0.y = (*e0).axis * scale * sine + (*e0).ordinate * scale * cosine;
-	p1.x = (*e1).axis * scale * cosine - (*e1).ordinate * scale * sine;
-	p1.y = (*e1).axis * scale * sine + (*e1).ordinate * scale * cosine;
+	p0.x = ((*e0).axis - (*e0).ordinate) * cosine * scale;
+	p0.y = (((*e0).axis + (*e0).ordinate) * sine - (*e0).altitude) * scale;
+	p1.x = ((*e1).axis - (*e1).ordinate) * cosine * scale;
+	p1.y = (((*e1).axis + (*e1).ordinate) * sine - (*e1).altitude) * scale;
 	p0.x += (*scene).translation.x;
 	p0.y += (*scene).translation.y;
 	p1.x += (*scene).translation.x;

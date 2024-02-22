@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 08:28:33 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/23 00:08:47 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/23 00:52:01 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,4 @@ void	zoom(t_scene *scene, int factor)
 void	rotate(t_scene *scene, float angle)
 {
 	(*scene).angle += angle;
-	while ((*scene).angle < 0)
-		(*scene).angle += 2 * M_PI;
-	while ((*scene).angle >= 2 * M_PI)
-		(*scene).angle -= 2 * M_PI;
 }
