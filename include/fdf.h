@@ -20,8 +20,8 @@
 # include <stdio.h>
 
 # define TITLE "Wireframe Model"
-# define WIDTH 1280
-# define HEIGHT 960
+# define WIDTH 960
+# define HEIGHT 600
 
 /* ************************************************************************** */
 /*                           Definition of the Scene Structure                */
@@ -33,6 +33,8 @@ typedef struct s_scene
 	t_list		*edges;
 	size_t		scale;
 	float		angle;
+	char		renderize;
+	int			translate[2];
 }				t_scene;
 
 /* ************************************************************************** */
@@ -71,7 +73,7 @@ void			render_wireframe(t_scene *scene);
 /* ************************************************************************** */
 /*                                Transform                                   */
 /* ************************************************************************** */
-void			translate(t_list *lst, int dx, int dy);
+void			translate(t_scene *scene, int tx, int ty);
 void			zoom(t_scene *scene, int factor);
 void			rotate(t_scene *scene, float angle);
 

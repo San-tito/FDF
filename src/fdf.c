@@ -18,6 +18,8 @@ int	main(int argc, char **argv)
 
 	scene = (t_scene){};
 	scene.scale = 10;
+	scene.angle = 0.0;
+	scene.renderize = 1;
 	if (argc != 2)
 		return (EXIT_SUCCESS);
 	parse_map(*(argv + 1), &scene.edges);
