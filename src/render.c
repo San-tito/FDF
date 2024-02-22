@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 01:10:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/19 20:13:13 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/22 15:36:01 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ void	render_frame(t_scene *scene)
 	ft_bzero((*image).pixels, (*image).width * (*image).height * sizeof(int));
 	draw_edges(scene);
 	key_hook(scene);
-	ft_printf("Rendering \nx->%i\ny->%i\n\r",
-		(*(t_edge *)(*(*scene).edges).content).axis,
-		(*(t_edge *)(*(*scene).edges).content).ordinate);
+	ft_printf("Rendering frame... Press 'ESC' to exit.\r");
 }
 
 void	render_wireframe(t_scene *scene)

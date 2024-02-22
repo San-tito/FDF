@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 12:11:24 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/12 16:15:18 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/22 15:40:44 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ void	parse_map(char *pathname, t_list **edges)
 		free(line);
 		line = get_next_line(fd);
 	}
+	if (!ft_lstsize(*edges))
+		clean_halt(fd, edges, NULL, NULL);
 	ft_printf("Parsing complete!                  \n");
 	close(fd);
 }
