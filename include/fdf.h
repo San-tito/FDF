@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/22 15:36:25 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/23 00:10:16 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@
 # define HEIGHT 960
 
 /* ************************************************************************** */
+/*                           Definition of the Point Structure                */
+/* ************************************************************************** */
+typedef struct s_point
+{
+	int			x;
+	int			y;
+}				t_point;
+
+/* ************************************************************************** */
 /*                           Definition of the Scene Structure                */
 /* ************************************************************************** */
 typedef struct s_scene
@@ -33,6 +42,7 @@ typedef struct s_scene
 	t_list		*edges;
 	size_t		scale;
 	float		angle;
+	t_point		translation;
 }				t_scene;
 
 /* ************************************************************************** */
@@ -45,16 +55,6 @@ typedef struct s_edge
 	int			altitude;
 	int			color;
 }				t_edge;
-
-/* ************************************************************************** */
-/*                           Definition of the Point Structure                */
-/* ************************************************************************** */
-typedef struct s_point
-{
-	int			x;
-	int			y;
-	int			color;
-}				t_point;
 
 /* ************************************************************************** */
 /*                            Parsing Helpers                                 */
@@ -71,7 +71,7 @@ void			render_wireframe(t_scene *scene);
 /* ************************************************************************** */
 /*                                Transform                                   */
 /* ************************************************************************** */
-void			translate(t_list *lst, int dx, int dy);
+void			translate(t_scene *scene, int dx, int dy);
 void			zoom(t_scene *scene, int factor);
 void			rotate(t_scene *scene, float angle);
 

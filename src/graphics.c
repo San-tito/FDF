@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 07:43:56 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/21 21:31:03 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/23 00:29:32 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	get_color(int start_color, int end_color)
 	return ((r << 16) | (g << 8) | b);
 }
 
-static void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
+static void	draw_line(mlx_image_t *image, t_point p0, t_point p1, int color)
 {
 	int	dx;
 	int	sx;
@@ -50,19 +50,19 @@ static void	draw_line(mlx_image_t *image, t_point p0, t_point p1)
 	int	err;
 
 	dx = abs(p1.x - p0.x);
-	sx = copysign(1, p1.x - p0.x);
+	sx = (p0.x < p1.x) + (p0.x > p1.x) * -1;
 	dy = -abs(p1.y - p0.y);
-	sy = copysign(1, p1.y - p0.y);
+	sy = (p0.y < p1.y) + (p0.y > p1.y) * -1;
 	err = dx + dy;
 	while (!(p0.x == p1.x && p0.y == p1.y))
 	{
-		pixel_put(image, p0.x, p0.y, get_color(p0.color, p1.color));
-		if (err * 2 >= dy)
+		pixel_put(image, p0.x, p0.y, color);
+		if (2 * err >= dy && p0.x != p1.x)
 		{
 			err += dy;
 			p0.x += sx;
 		}
-		if (err * 2 <= dx)
+		if (2 * err <= dx && p0.y != p1.y)
 		{
 			err += dx;
 			p0.y += sy;
@@ -80,11 +80,13 @@ void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
 
 	p0.x = (*e0).axis * scale * cosine - (*e0).ordinate * scale * sine;
 	p0.y = (*e0).axis * scale * sine + (*e0).ordinate * scale * cosine;
-	p0.color = (*e0).color;
 	p1.x = (*e1).axis * scale * cosine - (*e1).ordinate * scale * sine;
 	p1.y = (*e1).axis * scale * sine + (*e1).ordinate * scale * cosine;
-	p1.color = (*e1).color;
-	draw_line((*scene).image, p0, p1);
+	p0.x += (*scene).translation.x;
+	p0.y += (*scene).translation.y;
+	p1.x += (*scene).translation.x;
+	p1.y += (*scene).translation.y;
+	draw_line((*scene).image, p0, p1, get_color((*e0).color, (*e1).color));
 }
 
 t_edge	*find_down(t_list *edges, t_edge *edge)

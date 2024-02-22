@@ -6,25 +6,16 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 08:28:33 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/19 20:11:31 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/23 00:08:47 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	translate(t_list *lst, int tx, int ty)
+void	translate(t_scene *scene, int tx, int ty)
 {
-	t_list	*current;
-	t_edge	*edge;
-
-	current = lst;
-	while (current)
-	{
-		edge = (*current).content;
-		(*edge).axis += tx;
-		(*edge).ordinate += ty;
-		current = (*current).next;
-	}
+	(*scene).translation.x += tx;
+	(*scene).translation.y += ty;
 }
 
 void	zoom(t_scene *scene, int factor)
