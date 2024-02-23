@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/23 00:10:16 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/23 19:08:23 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 # define HEIGHT 960
 
 /* ************************************************************************** */
-/*                           Definition of the Point Structure                */
+/*                        Definition of the Vector Structure                 */
 /* ************************************************************************** */
-typedef struct s_point
+typedef struct s_vector
 {
-	int			x;
-	int			y;
-}				t_point;
+	int			i;
+	int			j;
+}				t_vector;
 
 /* ************************************************************************** */
 /*                           Definition of the Scene Structure                */
@@ -40,9 +40,10 @@ typedef struct s_scene
 	mlx_t		*xlib;
 	mlx_image_t	*image;
 	t_list		*edges;
-	size_t		scale;
 	float		angle;
-	t_point		translation;
+	int			scale;
+	t_vector	rotation;
+	t_vector	translation;
 }				t_scene;
 
 /* ************************************************************************** */
@@ -66,6 +67,8 @@ void			parse_map(char *pathname, t_list **edges);
 /*                                Rendering                                   */
 /* ************************************************************************** */
 void			draw_edges(t_scene *scene);
+void			draw_line(mlx_image_t *image, t_vector v0, t_vector v1,
+					int color);
 void			render_wireframe(t_scene *scene);
 
 /* ************************************************************************** */
@@ -74,6 +77,11 @@ void			render_wireframe(t_scene *scene);
 void			translate(t_scene *scene, int dx, int dy);
 void			zoom(t_scene *scene, int factor);
 void			rotate(t_scene *scene, float angle);
+
+/* ************************************************************************** */
+/*                                 Input                                      */
+/* ************************************************************************** */
+void	handle_input(t_scene *scene);
 
 /* ************************************************************************** */
 /*                             Memory Freers                                  */

@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 08:28:33 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/23 00:52:01 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/02/23 18:33:42 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	translate(t_scene *scene, int tx, int ty)
 {
-	(*scene).translation.x += tx;
-	(*scene).translation.y += ty;
+	(*scene).translation.i += tx;
+	(*scene).translation.j += ty;
 }
 
 void	zoom(t_scene *scene, int factor)

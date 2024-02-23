@@ -6,7 +6,7 @@
 #    By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/16 18:17:45 by sguzman           #+#    #+#              #
-#    Updated: 2024/02/21 19:47:50 by sguzman          ###   ########.fr        #
+#    Updated: 2024/02/23 19:09:13 by sguzman          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ HEADER		= $(INCLUDE_PATH)/fdf.h
 
 GNL_HEADER 	= $(GNL_PATH)/get_next_line.h
 
-SRCS 		= clean.c graphics.c parse.c render.c transform.c
+SRCS 		= clean.c draw.c graphics.c input.c parse.c render.c transform.c
 
 GNL_SRCS 	= get_next_line.c get_next_line_utils.c
 
