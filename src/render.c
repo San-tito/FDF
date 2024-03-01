@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 01:10:04 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/23 19:08:51 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/03/01 15:35:36 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,14 @@ void	render_frame(t_scene *scene)
 	mlx_image_t	*image;
 
 	handle_input(scene);
-	image = (*scene).image;
-	ft_bzero((*image).pixels, (*image).width * (*image).height * sizeof(int));
-	draw_edges(scene);
+	if ((*scene).refresh)
+	{
+		image = (*scene).image;
+		ft_bzero((*image).pixels, (*image).width * (*image).height
+			* sizeof(int));
+		draw_edges(scene);
+		(*scene).refresh = 0;
+	}
 	ft_printf("Rendering frame... Press 'ESC' to exit.\r");
 }
 
