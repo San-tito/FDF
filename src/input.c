@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 19:01:06 by sguzman           #+#    #+#             */
-/*   Updated: 2024/02/23 19:07:41 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/03/03 14:11:34 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,28 @@ static void	handle_translation(mlx_t *xlib, t_scene *scene)
 
 static void	handle_rotation(mlx_t *xlib, t_scene *scene)
 {
+	if ((mlx_is_key_down(xlib, MLX_KEY_UP) || mlx_is_key_down(xlib, MLX_KEY_W))
+		&& mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
+		rotate(scene, 0, -1);
+	if ((mlx_is_key_down(xlib, MLX_KEY_DOWN) || mlx_is_key_down(xlib,
+				MLX_KEY_S)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
+		rotate(scene, 0, 1);
 	if ((mlx_is_key_down(xlib, MLX_KEY_LEFT) || mlx_is_key_down(xlib,
 				MLX_KEY_A)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, 0.1);
+		rotate(scene, -1, 0);
 	if ((mlx_is_key_down(xlib, MLX_KEY_RIGHT) || mlx_is_key_down(xlib,
 				MLX_KEY_D)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, -0.1);
+		rotate(scene, 1, 0);
+}
+
+static void	handle_dizzy(mlx_t *xlib, t_scene *scene)
+{
+	if ((mlx_is_key_down(xlib, MLX_KEY_LEFT) || mlx_is_key_down(xlib,
+				MLX_KEY_A)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_CONTROL))
+		dizzy(scene, 0.1);
+	if ((mlx_is_key_down(xlib, MLX_KEY_RIGHT) || mlx_is_key_down(xlib,
+				MLX_KEY_D)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_CONTROL))
+		dizzy(scene, -0.1);
 }
 
 void	handle_input(t_scene *scene)
@@ -51,6 +67,11 @@ void	handle_input(t_scene *scene)
 	handle_zoom(xlib, scene);
 	handle_translation(xlib, scene);
 	handle_rotation(xlib, scene);
+	handle_dizzy(xlib, scene);
+	if (mlx_is_key_down(xlib, MLX_KEY_I))
+		(*scene).view = 1;
+	if (mlx_is_key_down(xlib, MLX_KEY_O))
+		(*scene).view = 0;
 	if (mlx_is_key_down(xlib, MLX_KEY_ESCAPE))
 		mlx_close_window(xlib);
 }

@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/03/01 15:33:56 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/03/03 14:03:32 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_vector
 typedef struct s_scene
 {
 	char refresh : 1;
+	char view : 1;
 	mlx_t		*xlib;
 	mlx_image_t	*image;
 	t_list		*edges;
@@ -76,8 +77,9 @@ void			render_wireframe(t_scene *scene);
 /*                                Transform                                   */
 /* ************************************************************************** */
 void			translate(t_scene *scene, int dx, int dy);
+void			rotate(t_scene *scene, int dx, int dy);
+void			dizzy(t_scene *scene, float angle);
 void			zoom(t_scene *scene, int factor);
-void			rotate(t_scene *scene, float angle);
 
 /* ************************************************************************** */
 /*                                 Input                                      */
