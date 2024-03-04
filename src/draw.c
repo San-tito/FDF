@@ -6,31 +6,22 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 18:18:41 by sguzman           #+#    #+#             */
-/*   Updated: 2024/03/03 14:11:19 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/03/04 13:14:00 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	apply_translation(t_vector *v, int tx, int ty)
+static void	translation(t_vector *v, int tx, int ty)
 {
 	(*v).i += tx;
 	(*v).j += ty;
 }
 
-static void	apply_rotation(t_vector *v, float angle_x, float angle_y)
+static void	rotation(t_edge *edge, t_vector angle)
 {
-	const float	cos_x = cos(angle_x / 10);
-	const float	sin_x = sin(angle_x / 10);
-	const float	cos_y = cos(angle_y / 10);
-	const float	sin_y = sin(angle_y / 10);
-	const float	j_temp = v->j;
-	const float	i_temp = v->i;
-
-	v->j = j_temp * cos_x - v->i * sin_x;
-	v->i = j_temp * sin_x + v->i * cos_x;
-	v->i = i_temp * cos_y - v->j * sin_y;
-	v->j = i_temp * sin_y + v->j * cos_y;
+	(void)edge;
+	(void)angle;
 }
 
 static void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
@@ -41,6 +32,8 @@ static void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
 	const float	sine = sin((*scene).angle);
 	const float	cosine = cos((*scene).angle);
 
+	rotation(e0, (*scene).rotation);
+	rotation(e1, (*scene).rotation);
 	if ((*scene).view)
 	{
 		v0.i = ((*e0).axis - (*e0).ordinate) * cosine * scale;
@@ -50,15 +43,13 @@ static void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
 	}
 	else
 	{
-		v0.i = (*e0).axis * cosine * scale;
-		v0.j = (*e0).ordinate * sine * scale;
-		v1.i = (*e1).axis * cosine * scale;
-		v1.j = (*e1).ordinate * sine * scale;
+		v0.i = ((*e0).axis + (*e0).altitude) * cosine * scale;
+		v0.j = ((*e0).ordinate + (*e0).altitude) * sine * scale;
+		v1.i = ((*e1).axis + (*e1).altitude) * cosine * scale;
+		v1.j = ((*e1).ordinate + (*e1).altitude) * sine * scale;
 	}
-	apply_rotation(&v0, (*scene).rotation.i, (*scene).rotation.j);
-	apply_rotation(&v1, (*scene).rotation.i, (*scene).rotation.j);
-	apply_translation(&v0, (*scene).translation.i, (*scene).translation.j);
-	apply_translation(&v1, (*scene).translation.i, (*scene).translation.j);
+	translation(&v0, (*scene).translation.i, (*scene).translation.j);
+	translation(&v1, (*scene).translation.i, (*scene).translation.j);
 	draw_line((*scene).image, v0, v1, (*e0).color);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/03/03 14:03:32 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/03/04 13:09:31 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define TITLE "Wireframe Model"
 # define WIDTH 1280
 # define HEIGHT 960
+# define ISOMETRIC 1
+# define CABINET 0
 
 /* ************************************************************************** */
 /*                        Definition of the Vector Structure                 */
@@ -53,9 +55,9 @@ typedef struct s_scene
 /* ************************************************************************** */
 typedef struct s_edge
 {
-	int			axis;
-	int			ordinate;
-	int			altitude;
+	double		axis;
+	double		ordinate;
+	double		altitude;
 	int			color;
 }				t_edge;
 

@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:35 by sguzman           #+#    #+#             */
-/*   Updated: 2024/03/03 13:47:29 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/03/04 13:12:55 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	initialize_scene(t_scene *scene)
 {
 	(*scene).refresh = 1;
+	(*scene).view = ISOMETRIC;
 	(*scene).scale = 10;
 	(*scene).angle = M_PI / 6;
 	translate(scene, (WIDTH / 2), (HEIGHT / 2));

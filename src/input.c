@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 19:01:06 by sguzman           #+#    #+#             */
-/*   Updated: 2024/03/03 14:11:34 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/03/04 13:12:01 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,15 @@ void	handle_input(t_scene *scene)
 	handle_rotation(xlib, scene);
 	handle_dizzy(xlib, scene);
 	if (mlx_is_key_down(xlib, MLX_KEY_I))
-		(*scene).view = 1;
-	if (mlx_is_key_down(xlib, MLX_KEY_O))
-		(*scene).view = 0;
+	{
+		(*scene).view = ISOMETRIC;
+		(*scene).refresh = 1;
+	}
+	if (mlx_is_key_down(xlib, MLX_KEY_C))
+	{
+		(*scene).view = CABINET;
+		(*scene).refresh = 1;
+	}
 	if (mlx_is_key_down(xlib, MLX_KEY_ESCAPE))
 		mlx_close_window(xlib);
 }
