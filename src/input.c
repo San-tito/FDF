@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 19:01:06 by sguzman           #+#    #+#             */
-/*   Updated: 2024/03/04 13:12:01 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/03/05 09:37:05 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ static void	handle_rotation(mlx_t *xlib, t_scene *scene)
 {
 	if ((mlx_is_key_down(xlib, MLX_KEY_UP) || mlx_is_key_down(xlib, MLX_KEY_W))
 		&& mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, 0, -1);
+		rotate(scene, 0, -0.1);
 	if ((mlx_is_key_down(xlib, MLX_KEY_DOWN) || mlx_is_key_down(xlib,
 				MLX_KEY_S)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, 0, 1);
+		rotate(scene, 0, 0.1);
 	if ((mlx_is_key_down(xlib, MLX_KEY_LEFT) || mlx_is_key_down(xlib,
 				MLX_KEY_A)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, -1, 0);
+		rotate(scene, -0.1, 0);
 	if ((mlx_is_key_down(xlib, MLX_KEY_RIGHT) || mlx_is_key_down(xlib,
 				MLX_KEY_D)) && mlx_is_key_down(xlib, MLX_KEY_LEFT_SHIFT))
-		rotate(scene, 1, 0);
+		rotate(scene, 0.1, 0);
 }
 
 static void	handle_dizzy(mlx_t *xlib, t_scene *scene)

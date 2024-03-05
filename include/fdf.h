@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelo>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:31:26 by sguzman           #+#    #+#             */
-/*   Updated: 2024/03/04 13:09:31 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/03/05 09:39:50 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ typedef struct s_vector
 }				t_vector;
 
 /* ************************************************************************** */
+/*                        Definition of the Transform Structure               */
+/* ************************************************************************** */
+typedef struct t_transform
+{
+	float		i;
+	float		j;
+}				t_transform;
+
+/* ************************************************************************** */
 /*                           Definition of the Scene Structure                */
 /* ************************************************************************** */
 typedef struct s_scene
@@ -46,7 +55,7 @@ typedef struct s_scene
 	t_list		*edges;
 	float		angle;
 	int			scale;
-	t_vector	rotation;
+	t_transform	rotation;
 	t_vector	translation;
 }				t_scene;
 
@@ -79,7 +88,7 @@ void			render_wireframe(t_scene *scene);
 /*                                Transform                                   */
 /* ************************************************************************** */
 void			translate(t_scene *scene, int dx, int dy);
-void			rotate(t_scene *scene, int dx, int dy);
+void			rotate(t_scene *scene, float dx, float dy);
 void			dizzy(t_scene *scene, float angle);
 void			zoom(t_scene *scene, int factor);
 

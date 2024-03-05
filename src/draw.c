@@ -6,7 +6,7 @@
 /*   By: sguzman <sguzman@student.42barcelona.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 18:18:41 by sguzman           #+#    #+#             */
-/*   Updated: 2024/03/04 13:14:00 by sguzman          ###   ########.fr       */
+/*   Updated: 2024/03/05 09:49:45 by sguzman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@ static void	translation(t_vector *v, int tx, int ty)
 	(*v).j += ty;
 }
 
-static void	rotation(t_edge *edge, t_vector angle)
+static void	rotation(t_vector *v, t_transform angle)
 {
-	(void)edge;
-	(void)angle;
+	float	x;
+	float	y;
+
+	x = (*v).i;
+	y = (*v).j;
+	(*v).i = x * cos(angle.i) - y * sin(angle.j);
+	(*v).j = x * sin(angle.i) + y * cos(angle.j);
 }
 
 static void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
@@ -32,8 +37,6 @@ static void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
 	const float	sine = sin((*scene).angle);
 	const float	cosine = cos((*scene).angle);
 
-	rotation(e0, (*scene).rotation);
-	rotation(e1, (*scene).rotation);
 	if ((*scene).view)
 	{
 		v0.i = ((*e0).axis - (*e0).ordinate) * cosine * scale;
@@ -48,6 +51,8 @@ static void	draw_segment(t_scene *scene, t_edge *e0, t_edge *e1)
 		v1.i = ((*e1).axis + (*e1).altitude) * cosine * scale;
 		v1.j = ((*e1).ordinate + (*e1).altitude) * sine * scale;
 	}
+	rotation(&v0, (*scene).rotation);
+	rotation(&v1, (*scene).rotation);
 	translation(&v0, (*scene).translation.i, (*scene).translation.j);
 	translation(&v1, (*scene).translation.i, (*scene).translation.j);
 	draw_line((*scene).image, v0, v1, (*e0).color);
